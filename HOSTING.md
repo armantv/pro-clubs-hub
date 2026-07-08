@@ -7,7 +7,7 @@ dann vollautomatisch aktualisieren.
 ## So greift alles ineinander
 
 ```
-Dein PC (alle 2 Std, unsichtbar)          GitHub                    Besucher
+Dein PC (alle 10 Min, unsichtbar)         GitHub                    Besucher
 ┌───────────────────────────┐       ┌──────────────────┐      ┌──────────────────┐
 │ Aufgabenplanung startet   │       │                  │      │ Webseite lädt    │
 │ update.py --auto          │ push  │  GitHub Pages    │      │ data.js alle 60s │
@@ -52,7 +52,7 @@ https://DEINNAME.github.io/pro-clubs-hub/
 ### 5. Auto-Update aktivieren
 Doppelklick auf **`Auto-Update-einrichten.bat`**. Ab jetzt gilt:
 
-- alle 2 Stunden (und kurz nach jeder PC-Anmeldung) holt dein PC unsichtbar frische EA-Daten,
+- alle 10 Minuten (und kurz nach jeder PC-Anmeldung) holt dein PC unsichtbar frische EA-Daten,
 - neue Daten werden automatisch committet und zu GitHub gepusht,
 - die gehostete Seite lädt `data.js` ohnehin jede Minute neu — **niemand muss je wieder etwas von Hand machen**.
 
@@ -61,7 +61,7 @@ Kontrolle: `update.log` in diesem Ordner. Abschalten: `Auto-Update-entfernen.bat
 ## Bonus: Cloud-Update ohne PC (optional)
 
 Mit dem Repo wird auch `.github/workflows/update-data.yml` hochgeladen: GitHub selbst
-prüft dann alle 6 Stunden **ourproclub.app** auf neue Spiele — das funktioniert auch,
+prüft dann alle 10 Minuten **ourproclub.app** auf neue Spiele — das funktioniert auch,
 wenn dein PC aus ist. EA direkt kann die Cloud nicht abfragen (geblockt), der volle
 EA-Abruf (inkl. Karrierewerte) kommt also weiterhin von deinem PC.
 Falls unerwünscht: die Datei einfach löschen.
@@ -70,7 +70,7 @@ Falls unerwünscht: die Datei einfach löschen.
 
 - **Netlify Drop** (<https://app.netlify.com/drop>): Ordner per Drag & Drop hochziehen — fertig.
   Nachteil: Daten aktualisieren sich nur, wenn du den Ordner neu hochziehst.
-- Jeder beliebige Webspace: `index.html`, `data.js`, `Logo.png`, `logo_cedric.png`,
+- Jeder beliebige Webspace: `index.html`, `data.js`, `logo_katalin.png`, `logo_cedric.png`,
   `logo_kepler.png` hochladen. Gleicher Nachteil.
 
 ## Häufige Fragen

@@ -1,13 +1,20 @@
-# Optionaler Cloud-Updater: laeuft alle 6 Stunden auf GitHub und holt
+# Optionaler Cloud-Updater: laeuft alle 10 Minuten auf GitHub und holt
 # neue Spiele von ourproclub.app (EA selbst blockt Cloud-Server, darum
 # kommt der volle EA-Abruf weiterhin vom eigenen PC via Auto-Update).
 # Findet der Lauf nichts Neues, passiert einfach nichts.
+# Hinweis: GitHub garantiert den Takt nicht exakt - unter Last kann ein
+# Lauf ein paar Minuten spaeter starten.
 name: Daten-Update (Cloud)
 
 on:
   schedule:
-    - cron: "23 */6 * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
+
+# Nie zwei Laeufe gleichzeitig (bei 10-Minuten-Takt sonst moeglich):
+concurrency:
+  group: daten-update
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -27,4 +34,19 @@ jobs:
           git config user.name "proclubs-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data.js matches_store.json
-          git diff --cached --quiet || { git commit -m "Cloud-Datenupdate"; git push; }
+          # data.js aendert sich bei JEDEM Lauf (updated-Zeitstempel). Committet
+          # wird aber nur, wenn wirklich neue Spiele im Store sind - oder als
+          # Frische-Heartbeat, wenn der letzte Commit >12 h her ist (die Seite
+          # warnt ab 26 h altem Datenstand; so bleibt die Anzeige ehrlich,
+          # ohne 144 Leer-Commits pro Tag zu produzieren).
+          if git diff --cached --quiet -- matches_store.json; then
+            last=$(git log -1 --format=%ct); now=$(date +%s)
+            if [ $((now - last)) -lt 43200 ]; then
+              echo "Nichts Neues - kein Commit noetig."
+              exit 0
+            fi
+          fi
+          git diff --cached --quiet || {
+            git commit -m "Cloud-Datenupdate"
+            git push || { git pull --rebase -X theirs; git push; }
+          }

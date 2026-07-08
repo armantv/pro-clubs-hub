@@ -1,6 +1,11 @@
 update.log
+.update.lock
 __pycache__/
 *.pyc
 .claude/
 .agents/
+.codex/
+.github/hooks/
+.github/skills/
+OpenSpace/
 skills-lock.json

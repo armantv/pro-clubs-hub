@@ -57,6 +57,7 @@ HERE = Path(__file__).resolve().parent
 STORE_PATH = HERE / "matches_store.json"
 DATA_JS_PATH = HERE / "data.js"
 LOG_PATH = HERE / "update.log"
+LOCK_PATH = HERE / ".update.lock"
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
@@ -249,12 +250,17 @@ def fetch_ea_all():
         try:
             for cid, cname in CLUBS.items():
                 say(f"  {cname} ...")
-                for mt in ("leagueMatch", "playoffMatch"):
+                # friendlyMatch existiert bei EA FC (bestaetigt 08.07.26, liefert
+                # eigene Historie) - best effort: ein Fehler dort kippt den Lauf nicht.
+                for mt in ("leagueMatch", "playoffMatch", "friendlyMatch"):
                     url = (f"{EA_BASE}/clubs/matches?platform={PLATFORM}"
                            f"&clubIds={cid}&matchType={mt}&maxResultCount=50")
                     try:
                         got = get_json(url, f"{cname}/{mt}")
                     except Exception:
+                        if mt == "friendlyMatch":
+                            say("    (Freundschaftsspiele nicht abrufbar - uebersprungen)")
+                            continue
                         # Fallback: das alte, garantiert akzeptierte Limit.
                         url20 = url.replace("maxResultCount=50", "maxResultCount=20")
                         got = get_json(url20, f"{cname}/{mt} (Limit 20)")
@@ -280,12 +286,16 @@ def fetch_ea_all():
                     meta["membersStats"] = ms.get("members", []) if isinstance(ms, dict) else ms
                 except Exception as e:
                     say(f"    (membersStats fehlgeschlagen: {str(e)[:60]})")
-                try:
-                    se = get_json(f"{EA_BASE}/clubs/seasonalStats?platform={PLATFORM}&clubIds={cid}",
-                                  f"{cname}/seasonalStats")
-                    meta["seasonal"] = se[0] if isinstance(se, list) and se else se
-                except Exception as e:
-                    say(f"    (seasonalStats fehlgeschlagen: {str(e)[:60]})")
+                # Saison-Historie: EA liefert das nicht auf jedem Stand der API -
+                # zwei Schreibweisen probieren, sonst kommentarlos weglassen.
+                for sep in ("seasonalStats", "seasonalstats"):
+                    try:
+                        se = get_json(f"{EA_BASE}/clubs/{sep}?platform={PLATFORM}&clubIds={cid}",
+                                      f"{cname}/{sep}", tries=1)
+                        meta["seasonal"] = se[0] if isinstance(se, list) and se else se
+                        break
+                    except Exception:
+                        pass
                 ea_meta[cid] = meta
         finally:
             browser.close()
@@ -341,6 +351,27 @@ def run_git(*args, timeout=90):
         ["git", *args], cwd=str(HERE), capture_output=True, text=True, timeout=timeout)
 
 
+def git_has_remote():
+    if not (HERE / ".git").exists():
+        return False
+    try:
+        return bool(run_git("remote").stdout.split())
+    except Exception:
+        return False
+
+
+def git_pull_first():
+    """Vor dem Datenlauf den Remote-Stand holen (z. B. Commits der
+    GitHub-Action), damit der spaetere Push nicht kollidiert und
+    Cloud-gefundene Spiele in den lokalen Store einfliessen."""
+    try:
+        r = run_git("pull", "--rebase", "--autostash", timeout=120)
+        if r.returncode != 0:
+            log(f"Pull vor Lauf fehlgeschlagen (weiter mit lokalem Stand): {r.stderr.strip()[:120]}")
+    except Exception as e:
+        log(f"Pull vor Lauf: {str(e)[:120]}")
+
+
 def git_autopush():
     """Committet & pusht neue Daten, wenn der Ordner ein Git-Repo mit
     Remote ist. Scheitert leise - der Datenlauf ist dann trotzdem ok.
@@ -360,7 +391,14 @@ def git_autopush():
             return f"Commit fehlgeschlagen: {c.stderr.strip()[:120]}"
         p = run_git("push", timeout=180)
         if p.returncode != 0:
-            return f"Push fehlgeschlagen: {p.stderr.strip()[:120]}"
+            # Remote ist inzwischen weiter (z. B. GitHub-Action hat gepusht):
+            # Remote-Stand einrebasen, bei Konflikt in den Datendateien
+            # gewinnt unser frischer Lauf ("theirs" = unser Commit im Rebase).
+            run_git("pull", "--rebase", "-X", "theirs", timeout=120)
+            p = run_git("push", timeout=180)
+            if p.returncode != 0:
+                run_git("rebase", "--abort")
+                return f"Push fehlgeschlagen: {p.stderr.strip()[:120]}"
         return "gepusht - gehostete Seite aktualisiert sich"
     except FileNotFoundError:
         return "git nicht installiert (Push uebersprungen)"
@@ -427,12 +465,34 @@ def main():
     say("Pro Clubs Hub - Daten aktualisieren (3 Vereine)")
     say("===============================================")
 
+    # Beim 10-Minuten-Takt darf kein zweiter Lauf parallel starten.
+    try:
+        if LOCK_PATH.exists() and time.time() - LOCK_PATH.stat().st_mtime < 15 * 60:
+            say("Ein anderer Update-Lauf ist noch aktiv - dieser Lauf wird uebersprungen.")
+            return 0
+        LOCK_PATH.write_text(str(datetime.now()), encoding="utf-8")
+    except Exception:
+        pass
+    try:
+        return run(args)
+    finally:
+        try:
+            LOCK_PATH.unlink()
+        except Exception:
+            pass
+
+
+def run(args):
     if not internet_ok():
         say("Kein Internet - warte auf Verbindung ...")
         if not wait_for_internet(600 if args.auto else 60):
             say("FEHLER: Immer noch kein Internet. Abbruch.")
             log("FEHLER: kein Internet, Lauf abgebrochen")
             return 1
+
+    # Remote-Stand zuerst holen, damit der spaetere Push sauber durchgeht.
+    if not args.no_push and git_has_remote():
+        git_pull_first()
 
     store, ea_meta, before, ea_count = collect(auto=args.auto, cloud=args.cloud)
 

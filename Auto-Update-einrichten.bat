@@ -6,14 +6,14 @@ echo   Pro Clubs Hub - Auto-Update EINRICHTEN
 echo ============================================
 echo.
 echo Richtet zwei Aufgaben in der Windows-Aufgabenplanung ein:
-echo   1. Alle 2 Stunden Daten holen (unsichtbar im Hintergrund)
+echo   1. Alle 10 Minuten Daten holen (unsichtbar im Hintergrund)
 echo   2. Einmal kurz nach jeder PC-Anmeldung
 echo.
 echo Liegt der Ordner in einem Git-Repo mit Remote (siehe HOSTING.md),
 echo werden neue Daten automatisch zur gehosteten Webseite gepusht.
 echo.
 
-schtasks /Create /F /TN "ProClubsHub Auto-Update" /SC HOURLY /MO 2 ^
+schtasks /Create /F /TN "ProClubsHub Auto-Update" /SC MINUTE /MO 10 ^
   /TR "wscript.exe \"%~dp0update-silent.vbs\""
 if errorlevel 1 goto :fehler
 
