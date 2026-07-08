@@ -20,36 +20,21 @@ Dein PC (alle 10 Min, unsichtbar)         GitHub                    Besucher
 EA blockt Server-Abrufe (Akamai-Schutz) — darum holt **dein PC** die Daten
 und schiebt sie hoch. Die Seite selbst braucht keinen Server.
 
-## Einmalige Einrichtung (ca. 10 Minuten)
+## Status: eingerichtet ✅ (08.07.2026)
 
-### 1. Git installieren (falls noch nicht da)
-<https://git-scm.com/download/win> — einfach durchklicken, Standardeinstellungen passen.
+Alles Folgende ist bereits erledigt:
 
-### 2. GitHub-Konto + Repository
-1. Auf <https://github.com> anmelden (kostenlos).
-2. Oben rechts **+** → **New repository** → Name z. B. `pro-clubs-hub` → **Public** → **Create repository**.
+- **Repository:** <https://github.com/armantv/pro-clubs-hub> (öffentlich)
+- **Webseite live:** <https://armantv.github.io/pro-clubs-hub/>
+- **Cloud-Update aktiv:** GitHub prüft alle 10 Minuten ourproclub.app auf neue
+  Spiele und pusht sie — **auch wenn dein PC aus ist**. Committet wird nur bei
+  echten neuen Spielen (plus ein „Heartbeat" alle ~12 h, damit die Frische-Anzeige
+  auf der Seite ehrlich bleibt).
 
-### 3. Diesen Ordner hochladen
-In diesem Ordner PowerShell öffnen (Shift+Rechtsklick → „PowerShell-Fenster hier öffnen") und
-— mit deinem GitHub-Nutzernamen statt `DEINNAME` — eingeben:
+**Der einzige offene Handgriff** (einmalig, für die vollen EA-Daten inkl.
+Karrierewerte, die die Cloud nicht abrufen kann):
 
-```powershell
-git remote add origin https://github.com/DEINNAME/pro-clubs-hub.git
-git push -u origin main
-```
-
-Beim ersten Push öffnet sich ein Anmeldefenster von GitHub — einmal einloggen, fertig.
-(Das lokale Git-Repository mit allen Dateien ist hier schon vorbereitet.)
-
-### 4. GitHub Pages einschalten
-Im Repository: **Settings → Pages → Branch: `main` / Ordner: `/ (root)` → Save**.
-Nach 1–2 Minuten ist die Seite erreichbar unter:
-
-```
-https://DEINNAME.github.io/pro-clubs-hub/
-```
-
-### 5. Auto-Update aktivieren
+### Auto-Update auf dem PC aktivieren
 Doppelklick auf **`Auto-Update-einrichten.bat`**. Ab jetzt gilt:
 
 - alle 10 Minuten (und kurz nach jeder PC-Anmeldung) holt dein PC unsichtbar frische EA-Daten,
@@ -58,13 +43,19 @@ Doppelklick auf **`Auto-Update-einrichten.bat`**. Ab jetzt gilt:
 
 Kontrolle: `update.log` in diesem Ordner. Abschalten: `Auto-Update-entfernen.bat`.
 
-## Bonus: Cloud-Update ohne PC (optional)
+## Cloud-Update ohne PC (läuft bereits)
 
-Mit dem Repo wird auch `.github/workflows/update-data.yml` hochgeladen: GitHub selbst
-prüft dann alle 10 Minuten **ourproclub.app** auf neue Spiele — das funktioniert auch,
-wenn dein PC aus ist. EA direkt kann die Cloud nicht abfragen (geblockt), der volle
-EA-Abruf (inkl. Karrierewerte) kommt also weiterhin von deinem PC.
+`.github/workflows/update-data.yml` ist aktiv: GitHub prüft alle 10 Minuten
+**ourproclub.app** auf neue Spiele — das funktioniert auch, wenn dein PC aus ist.
+EA direkt kann die Cloud nicht abfragen (Akamai blockt Server-IPs), der volle
+EA-Abruf (inkl. Karrierewerte und Freundschaftsspiele) kommt von deinem PC,
+sobald er läuft. Kontrolle: Repo → **Actions** → „Daten-Update (Cloud)".
 Falls unerwünscht: die Datei einfach löschen.
+
+**Hinweis:** GitHub schaltet zeitgesteuerte Workflows nach 60 Tagen ohne
+Repo-Aktivität schlafend — die automatischen Daten-Commits zählen als Aktivität,
+solange gespielt wird. Nach langer Pause einmal unter Actions auf
+„Enable workflow" klicken.
 
 ## Alternativen ohne GitHub
 
