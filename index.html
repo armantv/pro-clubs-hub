@@ -790,6 +790,43 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
 .pctltag.solid{background:var(--card-3);color:var(--acc-deep)}
 .pctltag.low{background:var(--loss-bg);color:var(--loss)}
 
+/* ---------- H-BARS (Torbeteiligung / Einsatzzeiten / Wochentage) ---------- */
+.hbars{display:flex;flex-direction:column;gap:9px}
+.hrow{display:grid;grid-template-columns:118px 1fr 64px;gap:10px;align-items:center}
+.hrow .hname{font-size:.78rem;font-weight:700;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+.hrow .htrack{display:flex;gap:2px;height:15px} /* 2px Surface-Gap trennt Segmente */
+.hrow .htrack i{display:block;height:100%;transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:var(--hd,0s)}
+.hrow .htrack i:last-child{border-radius:0 4px 4px 0} /* Daten-Ende rund, Basislinie eckig */
+.hrow .htrack i.hg{background:var(--acc)}
+.hrow .htrack i.ha{background:var(--acc-2)}
+.hrow .htrack i.w{background:var(--win)} .hrow .htrack i.d{background:var(--draw)} .hrow .htrack i.l{background:var(--loss)}
+.hrow .hval{font-family:var(--mono);font-size:.76rem;font-weight:600;color:var(--ink);white-space:nowrap}
+.legend.tight{margin:0 0 12px}
+
+/* ---------- SCATTER (Kader-Landkarte) ---------- */
+#scatterBox{overflow-x:auto;overflow-y:hidden} /* mobil: im Panel scrollen statt unlesbar schrumpfen */
+#scatterBox svg{min-width:620px}
+.scatter{width:100%;height:auto;display:block;overflow:visible}
+.scatter .sgrid{stroke:var(--line-2);stroke-width:1}
+.scatter .axlbl{font-family:var(--body);font-weight:700;font-size:11px;fill:var(--muted)}
+.scatter .ticklbl{font-family:var(--mono);font-size:9.5px;fill:var(--faint)}
+.scatter .pdot{stroke:var(--card);stroke-width:2;opacity:0;transition:opacity .5s ease;transition-delay:var(--sd,0s)}
+.scatter .pdot.in{opacity:1}
+.scatter .phit{fill:transparent;cursor:pointer}
+.scatter .phit:hover+.pdot{opacity:1;filter:brightness(1.12)}
+.scatter .pname{font-family:var(--body);font-weight:700;font-size:10.5px;fill:var(--strong)}
+
+/* ---------- NACH-OBEN-BUTTON ---------- */
+.totop{position:fixed;right:18px;bottom:18px;z-index:60;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line-2);background:var(--nav-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:var(--acc-deep);font-size:1.1rem;font-weight:800;font-family:var(--body);cursor:pointer;box-shadow:var(--sh);
+  opacity:0;transform:translateY(14px);pointer-events:none;
+  transition:opacity .3s ease,transform .35s cubic-bezier(.32,.72,0,1),color .2s}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{color:var(--acc)}
+.totop:active{transform:scale(.94)}
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:1020px){
   .hero-in{grid-template-columns:1fr}
@@ -821,6 +858,8 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
   .fairpct{display:none}
   .split{grid-template-columns:1fr}
   .sess{gap:8px}
+  .hrow{grid-template-columns:86px 1fr 52px;gap:7px}
+  .totop{right:12px;bottom:12px;width:40px;height:40px}
 }
 .hide-sm{}@media (max-width:680px){.hide-sm{display:none!important}}
 
@@ -835,6 +874,9 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
   .matchlist.anim .match{animation:none!important}
   .m-detail{transition:none}
   .bar,.sess .sbar,.imp-fill,.h2h-fill,.duo-bar i,.barstat .fill{transition:none!important}
+  .hrow .htrack i{transform:none!important;transition:none!important}
+  .scatter .pdot{opacity:1!important;transition:none!important}
+  .totop{transition:none}
   .modal,.sheet{animation:none!important}
   .shead h2::after{transition:none;transform:scaleX(1)!important}
   .kpi,.aw,.duo,.ins{--spot:0%!important;transition:none}
@@ -938,6 +980,13 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
         <div class="panel"><h3 class="panel-h">Wer trifft?</h3><p class="panel-sub" id="scorersSub"></p>
           <div id="donutScorers" class="donutwrap"></div></div>
       </div>
+      <div class="gpanels">
+        <div class="panel"><h3 class="panel-h">Torbeteiligung</h3><p class="panel-sub" id="contribSub"></p>
+          <div class="legend tight"><span><i style="background:var(--acc)"></i>Tore</span><span><i style="background:var(--acc-2)"></i>Vorlagen</span></div>
+          <div id="contribBox" class="hbars"></div></div>
+        <div class="panel"><h3 class="panel-h">Einsatzzeiten</h3><p class="panel-sub" id="minsSub"></p>
+          <div id="minsBox" class="hbars"></div></div>
+      </div>
     </section>
 
     <!-- FORM -->
@@ -961,6 +1010,15 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
         <h3 class="panel-h">Team-Note pro Spiel</h3>
         <p class="panel-sub" id="noteSub">Durchschnittsnote der menschlichen Spieler je Partie — Punktfarbe = Ergebnis.</p>
         <div id="noteTrend"></div>
+      </div>
+      <div class="gpanels">
+        <div class="panel"><h3 class="panel-h">Formkurve</h3>
+          <p class="panel-sub" id="formCurveSub">Ø Punkte aus den jeweils letzten 5 Spielen — über der Marke gewinnt ihr öfter, als ihr verliert.</p>
+          <div id="formCurve"></div></div>
+        <div class="panel"><h3 class="panel-h">Wochentags-Bilanz</h3>
+          <p class="panel-sub" id="wdaySub">An welchen Tagen ihr spielt — und wie es ausgeht.</p>
+          <div class="legend tight"><span><i style="background:var(--win)"></i>Sieg</span><span><i style="background:var(--draw)"></i>Remis</span><span><i style="background:var(--loss)"></i>Pleite</span></div>
+          <div id="wdayBox" class="hbars"></div></div>
       </div>
       <div class="gpanels">
         <div class="panel"><h3 class="panel-h">Ergebnis-Matrix</h3>
@@ -989,6 +1047,10 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
     <section id="kader">
       <div class="shead"><span class="ic">👥</span><div class="tt"><h2>Kader</h2>
         <p class="sub">Alle Spieler im Vergleich — Klick auf eine Zeile öffnet das Spieler-Profil.</p></div></div>
+      <div class="panel" style="margin-bottom:16px"><h3 class="panel-h">Kader-Landkarte</h3>
+        <p class="panel-sub" id="scatterSub">Jeder Punkt ein Spieler: rechts = mehr Torbeteiligungen, oben = mehr Defensivarbeit (beides pro 90 Min). Punktgröße = Spielzeit.</p>
+        <div id="scatterLegend" class="legend tight"></div>
+        <div id="scatterBox"></div></div>
       <div class="tablewrap">
         <div class="tbar">
           <span class="lbl">Spielerwerte</span>
@@ -1063,6 +1125,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
 
 <div id="modal" class="modal" hidden></div>
 <div id="toast" class="toast" role="status"></div>
+<button id="toTop" class="totop" title="Nach oben" aria-label="Nach oben scrollen">↑</button>
 
 <!-- Lokale Spieldaten aller drei Vereine, geschrieben vom Ein-Klick-Updater
      (update.py / Daten-aktualisieren.bat). -->
@@ -1632,10 +1695,11 @@ function renderCurrent(force){
   }
   $('app').hidden=false; $('stateBox').hidden=true;
   renderHero(); renderGesamtfazit(); renderVerdict(); renderInsights();
-  renderCareerKpis(); renderEaBand(); renderDonuts();
-  renderChart(); renderGdTrend(); renderNoteTrend(); renderMatrix(); renderSessions(); renderSplit();
+  renderCareerKpis(); renderEaBand(); renderDonuts(); renderContrib(); renderMins();
+  renderChart(); renderGdTrend(); renderNoteTrend(); renderFormCurve(); renderWday();
+  renderMatrix(); renderSessions(); renderSplit();
   renderPatterns(); renderFormline(); renderRecords();
-  renderSquad(); renderImpact(); renderDuos();
+  renderSquad(); renderScatter(); renderImpact(); renderDuos();
   renderH2HOptions(); renderAchievements(); renderOpponents(); renderMatches(); renderFoot();
   document.querySelectorAll('.scope[id]').forEach(el=>{
     if(['ueberblickScope','formScope','gegnerScope'].includes(el.id)) el.textContent=`${S.team.games} Spiele`;
@@ -1852,6 +1916,121 @@ function renderNoteTrend(){
   $('noteTrend').innerHTML=ratingTrendChart(rf);
   onView($('noteTrend'),()=>{ const l=document.querySelector('#noteTrend .tline'); if(l) l.style.strokeDashoffset='0'; });
 }
+/* ============================================================ NEUE CHARTS
+   (Torbeteiligung, Einsatzzeiten, Formkurve, Wochentage, Kader-Landkarte) */
+
+// Positionsfarben: fix über alle Themes (Identität wechselt nie die Farbe).
+// CVD-validiert hell+dunkel: schlechtestes Nachbarpaar dE 14.2.
+const POS_COL={goalkeeper:'#c2508f',defender:'#2f86c8',midfielder:'#1a9e57',forward:'#b8720f'};
+
+function hbarsIn(boxId){
+  onView($(boxId),()=>document.querySelectorAll('#'+boxId+' .htrack i').forEach(el=>el.style.transform='scaleX(1)'));
+}
+function renderContrib(){
+  const ps=S.players.filter(p=>p.ga>0).sort((a,b)=>b.ga-a.ga||b.goals-a.goals);
+  if(!ps.length){ $('contribSub').textContent='Noch keine Torbeteiligungen erfasst.'; $('contribBox').innerHTML=''; return; }
+  const top=ps.slice(0,8), rest=ps.slice(8);
+  const rows=top.map(p=>({name:p.name,g:p.goals,a:p.assists}));
+  if(rest.length) rows.push({name:`Weitere (${rest.length})`,g:rest.reduce((s,p)=>s+p.goals,0),a:rest.reduce((s,p)=>s+p.assists,0)});
+  const max=Math.max(...rows.map(r=>r.g+r.a));
+  $('contribSub').textContent=`Tore und Vorlagen gestapelt — alle ${S.team.games} aufgezeichneten Spiele.`;
+  $('contribBox').innerHTML=rows.map((r,i)=>`<div class="hrow" title="${esc(r.name)}: ${r.g} Tore · ${r.a} Vorlagen">
+      <span class="hname">${esc(r.name)}</span>
+      <div class="htrack">${r.g?`<i class="hg" style="width:${(100*r.g/max).toFixed(1)}%;--hd:${i*45}ms"></i>`:''}${r.a?`<i class="ha" style="width:${(100*r.a/max).toFixed(1)}%;--hd:${i*45+60}ms"></i>`:''}</div>
+      <span class="hval">${r.g+r.a}</span></div>`).join('');
+  hbarsIn('contribBox');
+}
+function renderMins(){
+  const ps=S.players.filter(p=>p.mins>0).sort((a,b)=>b.mins-a.mins).slice(0,10);
+  if(!ps.length){ $('minsSub').textContent='Noch keine Spielzeiten erfasst.'; $('minsBox').innerHTML=''; return; }
+  const max=Math.max(...ps.map(p=>p.mins));
+  $('minsSub').textContent='Wer am längsten auf dem Platz steht — Minuten gesamt (Top 10).';
+  $('minsBox').innerHTML=ps.map((p,i)=>`<div class="hrow" title="${esc(p.name)}: ${Math.round(p.mins)} Minuten in ${p.gp} Spielen">
+      <span class="hname">${esc(p.name)}</span>
+      <div class="htrack"><i class="hg" style="width:${(100*p.mins/max).toFixed(1)}%;--hd:${i*45}ms"></i></div>
+      <span class="hval">${Math.round(p.mins)} min</span></div>`).join('');
+  hbarsIn('minsBox');
+}
+function renderFormCurve(){
+  const form=S.team.form;
+  if(form.length<3){ $('formCurve').innerHTML='<p class="panel-sub" style="margin:0">Zu wenige Spiele.</p>'; return; }
+  const res=f=>f.r==='W'?3:f.r==='D'?1:0;
+  const pts=form.map((_,i)=>{ const win=form.slice(Math.max(0,i-4),i+1);
+    return win.reduce((s,f)=>s+res(f),0)/win.length; });
+  // viewBox 560: das Panel ist halbbreit — so bleiben die Beschriftungen lesbar
+  const w=560,h=210,padL=26,padR=92,padT=14,padB=16,n=pts.length;
+  const X=i=>n>1?padL+i*(w-padL-padR)/(n-1):w/2, Y=v=>padT+(3-v)/3*(h-padT-padB);
+  const line=pts.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ');
+  const area=line+` L${X(n-1).toFixed(1)} ${Y(0).toFixed(1)} L${X(0).toFixed(1)} ${Y(0).toFixed(1)} Z`;
+  const cur=pts[n-1];
+  const grid=[0,1,2,3].map(v=>`<line class="sgrid" x1="${padL}" y1="${Y(v).toFixed(1)}" x2="${w-padR}" y2="${Y(v).toFixed(1)}" style="stroke:var(--line-2)"/>
+      <text class="tlbl" x="${padL-8}" y="${(Y(v)+3).toFixed(1)}" text-anchor="end">${v}</text>`).join('');
+  $('formCurve').innerHTML=`<svg class="trend" viewBox="0 0 ${w} ${h}">
+      <defs><linearGradient id="fcg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${cssVar('--acc')}" stop-opacity=".16"/><stop offset="1" stop-color="${cssVar('--acc')}" stop-opacity="0"/></linearGradient></defs>
+      ${grid}
+      <path d="${area}" fill="url(#fcg)"/>
+      <path class="tline" pathLength="1" d="${line}"/>
+      <circle class="tdot" cx="${X(n-1).toFixed(1)}" cy="${Y(cur).toFixed(1)}" r="5"/>
+      <text class="tlbl" x="${(X(n-1)+12).toFixed(1)}" y="${(Y(cur)+4).toFixed(1)}" style="font-weight:700;fill:var(--strong);font-size:11px">Ø letzte 5: ${r2(cur)}</text>
+    </svg>`;
+  $('formCurveSub').textContent=`Ø Punkte aus den jeweils letzten 5 Spielen (0–3). Aktuell: ${r2(cur)} — Gesamtschnitt ${r2(S.team.ppg)}.`;
+  onView($('formCurve'),()=>{ const l=document.querySelector('#formCurve .tline'); if(l) l.style.strokeDashoffset='0'; });
+}
+function renderWday(){
+  const names=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+  const short=['So','Mo','Di','Mi','Do','Fr','Sa'];
+  const agg={};
+  for(const m of S.M){ const d=new Date(m.date).getDay();
+    (agg[d]=agg[d]||{w:0,d:0,l:0})[m.result==='W'?'w':m.result==='D'?'d':'l']++; }
+  const rows=[1,2,3,4,5,6,0].filter(d=>agg[d]).map(day=>({day,c:agg[day]}));
+  if(!rows.length){ $('wdayBox').innerHTML=''; return; }
+  const max=Math.max(...rows.map(r=>r.c.w+r.c.d+r.c.l));
+  $('wdaySub').textContent=`${rows.length} Spieltage pro Woche — Balkenlänge = Spiele, Farbe = Ausgang.`;
+  $('wdayBox').innerHTML=rows.map((r,i)=>{ const c=r.c, gp=c.w+c.d+c.l, ppg=(3*c.w+c.d)/gp;
+    const seg=(v,cls,extra)=>v?`<i class="${cls}" style="width:${(100*v/max).toFixed(1)}%;--hd:${i*45+(extra||0)}ms"></i>`:'';
+    return `<div class="hrow" title="${names[r.day]}: ${c.w}S ${c.d}U ${c.l}N aus ${gp} — ${r2(ppg)} Punkte/Spiel">
+      <span class="hname">${short[r.day]} · ${gp} Sp.</span>
+      <div class="htrack">${seg(c.w,'w',0)}${seg(c.d,'d',50)}${seg(c.l,'l',100)}</div>
+      <span class="hval">${r2(ppg)} P/Sp</span></div>`;
+  }).join('');
+  hbarsIn('wdayBox');
+}
+function niceStep(x){ const p=Math.pow(10,Math.floor(Math.log10(x||1))); const n=x/p;
+  return (n<=1?1:n<=2?2:n<=5?5:10)*p; }
+function renderScatter(){
+  const ps=S.players.filter(p=>p.mins>=30);
+  if(ps.length<3){ $('scatterBox').innerHTML='<p class="panel-sub" style="margin:0">Noch zu wenige Spieler mit genug Spielzeit.</p>'; $('scatterLegend').innerHTML=''; return; }
+  const pts=ps.map(p=>({p, x:p.per90('goals')+p.per90('assists'), y:p.per90('tacklesmade')+p.per90('interceptions')}));
+  const maxM=Math.max(...ps.map(p=>p.mins));
+  const maxX=Math.max(...pts.map(t=>t.x),0.5)*1.15, maxY=Math.max(...pts.map(t=>t.y),0.5)*1.15;
+  const w=1000,h=380,padL=44,padR=24,padT=18,padB=42;
+  const X=v=>padL+v/maxX*(w-padL-padR), Y=v=>h-padB-v/maxY*(h-padT-padB);
+  const sx=niceStep(maxX/4), sy=niceStep(maxY/4);
+  let grid='';
+  for(let v=0;v<=maxX+1e-9;v+=sx) grid+=`<line class="sgrid" x1="${X(v).toFixed(1)}" y1="${padT}" x2="${X(v).toFixed(1)}" y2="${h-padB}"/>
+    <text class="ticklbl" x="${X(v).toFixed(1)}" y="${h-padB+14}" text-anchor="middle">${+v.toFixed(2)}</text>`;
+  for(let v=0;v<=maxY+1e-9;v+=sy) grid+=`<line class="sgrid" x1="${padL}" y1="${Y(v).toFixed(1)}" x2="${w-padR}" y2="${Y(v).toFixed(1)}"/>
+    <text class="ticklbl" x="${padL-7}" y="${(Y(v)+3).toFixed(1)}" text-anchor="end">${+v.toFixed(2)}</text>`;
+  const labelled=new Set(pts.slice().sort((a,b)=>(b.x/maxX+b.y/maxY)-(a.x/maxX+a.y/maxY)).slice(0,4).map(t=>t.p.name));
+  const dots=pts.map((t,i)=>{ const r=5.5+Math.sqrt(t.p.mins/maxM)*6.5;
+    const cx=X(t.x).toFixed(1), cy=Y(t.y).toFixed(1);
+    const tip=`${t.p.name} · ${POS_MAP[t.p.pos]||'—'} — ${r2(t.x)} Torbeteil./90 · ${r2(t.y)} Defensivakt./90 · ${Math.round(t.p.mins)} min`;
+    const lbl=labelled.has(t.p.name)?`<text class="pname" x="${(+cx+(+cx>w-150?-(r+7):r+7)).toFixed(1)}" y="${(+cy+3.5).toFixed(1)}" ${+cx>w-150?'text-anchor="end"':''}>${esc(t.p.name)}</text>`:'';
+    return `<g><circle class="phit" cx="${cx}" cy="${cy}" r="${Math.max(r+8,14)}"><title>${esc(tip)}</title></circle>
+      <circle class="pdot" cx="${cx}" cy="${cy}" r="${r.toFixed(1)}" fill="${POS_COL[t.p.pos]||'#888'}" style="--sd:${i*40}ms"><title>${esc(tip)}</title></circle>${lbl}</g>`;
+  }).join('');
+  $('scatterBox').innerHTML=`<svg class="scatter" viewBox="0 0 ${w} ${h}">
+      ${grid}
+      <text class="axlbl" x="${w-padR}" y="${h-6}" text-anchor="end">Torbeteiligungen pro 90 Min →</text>
+      <text class="axlbl" x="${padL}" y="${padT-6}">Defensivaktionen pro 90 Min ↑</text>
+      ${dots}</svg>`;
+  const counts={}; ps.forEach(p=>counts[p.pos]=(counts[p.pos]||0)+1);
+  $('scatterLegend').innerHTML=['goalkeeper','defender','midfielder','forward'].filter(k=>counts[k])
+    .map(k=>`<span><i style="background:${POS_COL[k]};border-radius:50%"></i>${POS_MAP[k]} (${counts[k]})</span>`).join('');
+  $('scatterSub').textContent=`Jeder Punkt ein Spieler (ab 30 Min Spielzeit): rechts = mehr Torbeteiligungen, oben = mehr Defensivarbeit — beides pro 90 Min. Punktgröße = Spielzeit. Berühren zeigt Details.`;
+  onView($('scatterBox'),()=>document.querySelectorAll('#scatterBox .pdot').forEach(d=>d.classList.add('in')));
+}
+
 function renderMatrix(){
   const {grid,mx,N}=S.matrix;
   let head='<tr><th class="axis"></th>'+Array.from({length:N},(_,c)=>`<th>${c===N-1?(N-1)+'+':c}</th>`).join('')+'</tr>';
@@ -2667,8 +2846,10 @@ function measureDoc(){ docH=Math.max(1,document.documentElement.scrollHeight-inn
 window.addEventListener('resize', measureDoc, {passive:true});
 window.addEventListener('scroll', ()=>{ $('nav').classList.toggle('stuck',window.scrollY>150);
   $('sprog').style.transform=`scaleX(${clamp(window.scrollY/docH,0,1)})`;
+  $('toTop').classList.toggle('show',window.scrollY>900);
   let active=0; sections.forEach((s,i)=>{ if(s&&s.getBoundingClientRect().top<=120)active=i; });
   navLinks.forEach((a,i)=>a.classList.toggle('active',i===active)); }, {passive:true});
+$('toTop').addEventListener('click', ()=>window.scrollTo({top:0,behavior:RM()?'auto':'smooth'}));
 
 /* ============================================================ BOOT */
 const SEEN={}; // Datenstand des letzten Besuchs je Verein (fuer "Neu"-Badges)
