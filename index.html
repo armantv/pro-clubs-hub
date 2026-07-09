@@ -19,7 +19,7 @@
    PRO CLUBS HUB – DREI VEREINE, DREI GESICHTER
    Ein Gerüst, drei komplette Themes aus den Vereinswappen:
      · Katalin FC       Hellblau / Weiß / Königsblau  (Büffel-Wappen)
-     · Cedric sigmas    Schwarz / Silber / Gold        (Adler, 1969)
+     · Cedric sigmas    Schwarz / Weiß                 (Adler, 1969)
      · Kepler AllStars  Elfenbein / Gold / Schwarz     (Krone, Lorbeer)
    Alle Komponenten hängen NUR an CSS-Variablen – der Team-Wechsel
    tauscht das Variablen-Set am <html data-team=…>.
@@ -52,7 +52,7 @@
 }
 /* ---------- THEME: CEDRIC SIGMAS (dunkel · Silber · Gold) ---------- */
 [data-team="cedric"]{
-  --acc:#d9b45f; --acc-2:#b8bdc9; --acc-deep:#b28f3c; --acc-soft:#efd9a0; --acc-ink:#171205;
+  --acc:#e9ecf2; --acc-2:#aab1bf; --acc-deep:#cdd3de; --acc-soft:#f6f7fa; --acc-ink:#12141a;
   --strong:#f2f3f7; --ink:#e6e8ee; --ink-2:#c3c7d1; --muted:#9aa2b2; --faint:#7d8596;
   --bg:#0d0e12; --card:#16181e; --card-2:#1b1e25; --card-3:#21242d;
   --line:#262a33; --line-2:#313743; --line-3:#3d4452;
@@ -60,19 +60,19 @@
   --draw:#8b93a3; --draw-bg:#21242d; --gold:#e8c860; --amber:#d9a53a; --amber-bg:#2c2410;
   --hero-g:linear-gradient(135deg,#22242c 0%,#15161c 48%,#0a0a0d 100%);
   --hero-ink:#f2f3f7; --hero-sub:rgba(214,218,228,.78);
-  --hero-chip:rgba(255,255,255,.07); --hero-chipline:rgba(217,180,95,.35);
+  --hero-chip:rgba(255,255,255,.07); --hero-chipline:rgba(255,255,255,.30);
   --hero-card:rgba(255,255,255,.05); --hero-cardline:rgba(255,255,255,.13);
-  --hero-stripe:rgba(184,189,201,.07); --hero-glow:rgba(217,180,95,.22);
+  --hero-stripe:rgba(184,189,201,.07); --hero-glow:rgba(226,232,242,.20);
   --wm-a:#f5f6f8; --wm-b:#b9bec9;
-  --bgimg:radial-gradient(1100px 620px at 88% -10%,rgba(217,180,95,.10),transparent 60%),
+  --bgimg:radial-gradient(1100px 620px at 88% -10%,rgba(226,232,242,.08),transparent 60%),
           radial-gradient(900px 560px at -8% 4%,rgba(184,189,201,.08),transparent 55%),
           linear-gradient(180deg,#0d0e12 0%,#101117 46%,#0c0d11 100%);
-  --blob-1:#3a3419; --blob-2:#272a33; --blob-3:#1c1e26;
+  --blob-1:#2c2f38; --blob-2:#272a33; --blob-3:#1c1e26;
   --sh-sm:0 1px 2px rgba(0,0,0,.4),0 1px 3px rgba(0,0,0,.35);
   --sh:0 2px 8px rgba(0,0,0,.42),0 16px 36px rgba(0,0,0,.46);
   --sh-lg:0 32px 80px rgba(0,0,0,.7);
-  --sh-acc:0 12px 32px rgba(217,180,95,.20);
-  --nav-bg:rgba(18,20,25,.86); --seg-on:linear-gradient(135deg,#e8c973,#c39a45);
+  --sh-acc:0 12px 32px rgba(214,222,238,.16);
+  --nav-bg:rgba(18,20,25,.86); --seg-on:linear-gradient(135deg,#f4f6fa,#c6ccd8);
   --tab-bg:rgba(22,24,30,.72);
 }
 /* ---------- THEME: KEPLER ALLSTARS (Elfenbein · Gold · Schwarz) ---------- */
@@ -179,7 +179,7 @@ img{max-width:100%}
 @keyframes stripeFlow{to{background-position:540px 0,0 0}}
 .hero::after{content:"";position:absolute;right:-90px;bottom:-150px;width:420px;height:420px;z-index:0;
   background:radial-gradient(circle,var(--hero-glow),transparent 62%);border-radius:50%;pointer-events:none;opacity:.55}
-[data-team="cedric"] .hero{border-top:1px solid rgba(217,180,95,.55);border-bottom:1px solid rgba(217,180,95,.25)}
+[data-team="cedric"] .hero{border-top:1px solid rgba(242,244,248,.4);border-bottom:1px solid rgba(242,244,248,.16)}
 [data-team="kepler"] .hero{box-shadow:inset 0 0 0 1px rgba(201,162,84,.55),inset 0 0 0 4px rgba(201,162,84,.14),var(--sh-acc)}
 .hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1.4fr .9fr;gap:24px;padding:26px 30px}
 .hero-l{min-width:0;display:flex;flex-direction:column;justify-content:center}
@@ -1146,9 +1146,9 @@ const TEAMS = [
     scorerPal:['#1c6aa8','#2f86c8','#6cacde','#9cd6fd','#155a93'], scorerRest:'#b4d2e8',
     wash:['#4f9bd6','#0f3257'] },
   { key:'cedric', id:'1395195', name:'Cedric sigmas', logo:'logo_cedric.png',
-    kicker:'EA Sports FC · Pro Clubs', motto:'Seit 1969 · Schwarz & Silber & Gold',
-    av:['#b28f3c','#7e8494','#997f45','#565d6b','#d9b45f','#6b7080','#8a6f30','#454b58'],
-    scorerPal:['#d9b45f','#b8bdc9','#a8843a','#7e8494','#efd9a0'], scorerRest:'#3a3f4a',
+    kicker:'EA Sports FC · Pro Clubs', motto:'Seit 1969 · Schwarz & Weiß',
+    av:['#e9ecf2','#7d8596','#c6ccd8','#565d6b','#aab1bf','#3f4552','#8f96a5','#d8dce4'],
+    scorerPal:['#f2f4f8','#b8bdc9','#8b93a3','#5d6470','#d5d9e2'], scorerRest:'#3a3f4a',
     wash:['#1b1d24','#0a0a0d'] },
   { key:'kepler', id:'8343567', name:'Kepler AllStars', logo:'logo_kepler.png',
     kicker:'EA Sports FC · Pro Clubs', motto:'Deditio et Dignitas · Elfenbein & Gold',
@@ -2220,15 +2220,18 @@ function playerCellEa(p){
     <div class="pmeta"><b>${esc(p.name)}</b><span>${esc(sub||'–')}</span></div></div>`;
 }
 function eaRows(){
-  const carMap=byNameMax(S.ea.membersCareer,'gamesPlayed');
-  const stMap=byNameMax(S.ea.membersStats,'gamesPlayed');
+  // Pro-Klub-Werte aus members/stats – deckungsgleich mit der EA-Vereins-
+  // historie. KEIN Namens-Join: EA führt denselben Spieler je Position als
+  // eigene Zeile (z. B. Karamba7829 als Mittelfeld UND Verteidiger), und
+  // membersCareer würde die klubübergreifende Karriere einmischen.
   const out=[];
-  for(const [name,c] of carMap){
-    const st=stMap.get(name)||{};
-    const gp=num(c.gamesPlayed), goals=num(c.goals), assists=num(c.assists);
-    out.push({name, gp, goals, assists, ga:goals+assists, mom:num(c.manOfTheMatch),
-      rating:num(c.ratingAve), gpg:gp?goals/gp:0, apg:gp?assists/gp:0,
-      pos:c.favoritePosition||st.favoritePosition||'', winRate:st.winRate!=null?num(st.winRate):null,
+  for(const st of (S.ea&&S.ea.membersStats)||[]){
+    const gp=num(st.gamesPlayed);
+    if(!st.name||!gp) continue;                 // nie eingesetzte Mitglieder
+    const goals=num(st.goals), assists=num(st.assists);
+    out.push({name:st.name, gp, goals, assists, ga:goals+assists, mom:num(st.manOfTheMatch),
+      rating:num(st.ratingAve), gpg:goals/gp, apg:assists/gp,
+      pos:st.favoritePosition||'', winRate:st.winRate!=null?num(st.winRate):null,
       shotConv:st.shotSuccessRate!=null?num(st.shotSuccessRate):null,
       passAcc:st.passSuccessRate!=null?num(st.passSuccessRate):null,
       tklAcc:st.tackleSuccessRate!=null?num(st.tackleSuccessRate):null,
@@ -2247,7 +2250,7 @@ function renderSquad(){
     $('squadHint').textContent=''; return;
   }
   $('squadHint').innerHTML= ea
-    ? `EA-Karrierewerte aller je erfassten Mitglieder (Snapshot vom Updater) · Spalten klicken zum Sortieren`
+    ? `EA-Vereinshistorie: Werte aller je eingesetzten Mitglieder IN DIESEM Verein (Snapshot vom Updater) · Spalten klicken zum Sortieren`
     : `Aus allen ${S.team.games} aufgezeichneten Spielen · Spalten klicken zum Sortieren · grün/rot = Bester/Schlechtester · gedimmt = wenig Daten`;
   let key=UI.sortKey, dir=UI.sortDir;
   if(!cols.some(c=>c.key===key)){ key=ea?'gp':'avgRating'; dir=-1; UI.sortKey=key; UI.sortDir=dir; }
