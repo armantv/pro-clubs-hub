@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Pro Clubs Hub · Katalin FC · Cedric sigmas · Kepler AllStars</title>
-<meta name="description" content="Pro Clubs Hub — Live-Statistiken, Formkurven und faire, positionsbereinigte Spielervergleiche für Katalin FC, Cedric sigmas und Kepler AllStars.">
+<meta name="description" content="Pro Clubs Hub – Live-Statistiken, Formkurven und faire, positionsbereinigte Spielervergleiche für Katalin FC, Cedric sigmas und Kepler AllStars.">
 <meta property="og:title" content="Pro Clubs Hub · 3 Vereine · 1 Zentrale">
-<meta property="og:description" content="Statistiken, Form und faire Spielervergleiche — automatisch aktuell aus EA Sports FC Pro Clubs.">
+<meta property="og:description" content="Statistiken, Form und faire Spielervergleiche – automatisch aktuell aus EA Sports FC Pro Clubs.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="logo_katalin.png">
 <meta name="theme-color" content="#6cacde">
@@ -16,12 +16,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600;1,700;1,800;1,900&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700&family=Spline+Sans+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* =================================================================
-   PRO CLUBS HUB — DREI VEREINE, DREI GESICHTER
+   PRO CLUBS HUB – DREI VEREINE, DREI GESICHTER
    Ein Gerüst, drei komplette Themes aus den Vereinswappen:
      · Katalin FC       Hellblau / Weiß / Königsblau  (Büffel-Wappen)
      · Cedric sigmas    Schwarz / Silber / Gold        (Adler, 1969)
      · Kepler AllStars  Elfenbein / Gold / Schwarz     (Krone, Lorbeer)
-   Alle Komponenten hängen NUR an CSS-Variablen — der Team-Wechsel
+   Alle Komponenten hängen NUR an CSS-Variablen – der Team-Wechsel
    tauscht das Variablen-Set am <html data-team=…>.
    ================================================================= */
 
@@ -119,7 +119,7 @@ body{
   background-attachment:fixed;min-height:100vh;
   transition:background-color .45s ease;
 }
-/* Feiner Film-Grain gegen digitale Flachheit — fix, nie interaktiv im Weg */
+/* Feiner Film-Grain gegen digitale Flachheit – fix, nie interaktiv im Weg */
 body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.026;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size:160px 160px}
@@ -369,6 +369,7 @@ section.reveal:not(.in) .shead h2::after{transform:scaleX(0)}
 .eaband .eb-head span{font-family:var(--mono);font-size:.66rem;color:var(--hero-sub)}
 .eb-grid{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px 22px}
 .eb .v{font-family:var(--display);font-weight:900;font-size:1.85rem;line-height:1;letter-spacing:.01em}
+.eb .v.txt{font-size:1.02rem;line-height:1.25;font-weight:800;letter-spacing:.02em;padding-top:6px}
 .eb .v small{font-size:.5em;font-weight:700;opacity:.75}
 .eb .k{font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-sub);margin-top:4px}
 .eb .s{font-family:var(--mono);font-size:.64rem;color:var(--hero-sub);margin-top:2px}
@@ -393,7 +394,7 @@ section.reveal:not(.in) .shead h2::after{transform:scaleX(0)}
   transition:opacity .18s ease,transform .25s cubic-bezier(.32,.72,0,1);z-index:5;box-shadow:var(--sh)}
 .bargrp:hover .tip{opacity:1;transform:translate(-50%,0)} .bargrp:hover .bar{filter:brightness(1.12)}
 .chart-x{display:flex;gap:7px;margin-top:8px}
-.chart-x span{flex:1;text-align:center;font-size:.62rem;color:var(--faint);font-family:var(--mono);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chart-x span{flex:1;text-align:center;font-size:.62rem;color:var(--faint);font-family:var(--mono);min-width:0;white-space:nowrap}
 .legend{display:flex;gap:16px;margin-top:14px;font-size:.76rem;font-weight:600;color:var(--muted)}
 .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .legend i.gf{background:var(--win)} .legend i.ga{background:var(--loss)}
@@ -611,7 +612,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
 .m-score .o{color:var(--faint);font-weight:700}
 .m-score b.w{color:var(--win)} .m-score b.l{color:var(--loss)} .m-score b.d{color:var(--ink)}
 /* Aufklappen über Grid-Rows statt max-height: animiert sauber auf JEDE
-   Inhaltshöhe — lange Aufstellungen werden nie mehr abgeschnitten. */
+   Inhaltshöhe – lange Aufstellungen werden nie mehr abgeschnitten. */
 .m-detail{grid-column:1/-1;display:grid;grid-template-rows:0fr;
   transition:grid-template-rows .5s cubic-bezier(.32,.72,0,1)}
 .m-detail-in{overflow:hidden;min-height:0}
@@ -643,7 +644,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
 .sheet-h .who b{font-family:var(--display);font-weight:900;font-size:1.7rem;display:block;line-height:.95;text-transform:uppercase}
 .sheet-h .who span{font-size:.72rem;font-weight:700;letter-spacing:.04em;color:var(--hero-sub)}
 .sheet-h .hrate{margin-left:auto;text-align:right;position:relative}
-.sheet-h .hrate:last-of-type{margin-right:40px} /* Platz für den ✕-Button — nichts überdeckt */
+.sheet-h .hrate:last-of-type{margin-right:40px} /* Platz für den ✕-Button – nichts überdeckt */
 .sheet-h .hrate b{font-family:var(--display);font-weight:900;font-size:2.4rem;line-height:.9;display:block}
 .sheet-h .hrate span{font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-sub)}
 .sheet-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.18);border:none;color:var(--hero-ink);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.05rem;line-height:1;z-index:3;transition:.15s}
@@ -702,7 +703,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
 .teamswap .hero-swap{opacity:0;transform:translateY(6px)}
 
 /* ---------- REVEAL ----------
-   Bewusst OHNE filter:blur auf Section-Ebene — Blur über große Flächen
+   Bewusst OHNE filter:blur auf Section-Ebene – Blur über große Flächen
    erzwingt teure GPU-Repaints beim Scrollen; nur transform + opacity. */
 .reveal{opacity:0;transform:translateY(28px);
   transition:opacity .75s cubic-bezier(.32,.72,0,1),transform .75s cubic-bezier(.32,.72,0,1)}
@@ -904,13 +905,13 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
           <div class="crest" id="crestBox"><img id="crestImg" src="logo_katalin.png" alt=""></div>
           <div class="club-meta">
             <p class="club-kicker">EA Sports FC · Pro Clubs</p>
-            <h1 class="wordmark" id="wordmark">—</h1>
+            <h1 class="wordmark" id="wordmark">–</h1>
             <p class="motto" id="motto"></p>
             <div class="chips">
-              <span class="chip"><span class="ic">📊</span>Spiele <b id="chipGames">—</b></span>
-              <span class="chip"><span class="ic">🏆</span>Siegquote <b id="chipWin">—</b></span>
-              <span class="chip"><span class="ic">⚽</span>Tordiff <b id="chipGd">—</b></span>
-              <span class="chip hide-sm"><span class="ic">🔥</span>Serie <b id="chipForm">—</b></span>
+              <span class="chip"><span class="ic">📊</span>Spiele <b id="chipGames">–</b></span>
+              <span class="chip"><span class="ic">🏆</span>Siegquote <b id="chipWin">–</b></span>
+              <span class="chip"><span class="ic">⚽</span>Tordiff <b id="chipGd">–</b></span>
+              <span class="chip hide-sm"><span class="ic">🔥</span>Serie <b id="chipForm">–</b></span>
             </div>
           </div>
         </div>
@@ -921,8 +922,8 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
             <div class="gauge" id="heroGauge"></div>
             <div class="hrec">
               <div class="hrec-lbl">Bilanz · aufgezeichnet</div>
-              <div class="hrec-val" id="heroRecord">—</div>
-              <div class="hrec-sub" id="heroRecordSub">—</div>
+              <div class="hrec-val" id="heroRecord">–</div>
+              <div class="hrec-sub" id="heroRecordSub">–</div>
             </div>
           </div>
         </div>
@@ -958,7 +959,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
     <section id="ueberblick">
       <div class="shead"><span class="ic">🔍</span><div class="tt"><h2>Überblick</h2>
         <p class="sub">Gesamtnote, Kurzfazit und die ehrliche Analyse: was läuft, was hakt.</p></div>
-        <span class="scope" id="ueberblickScope">—</span></div>
+        <span class="scope" id="ueberblickScope">–</span></div>
       <div id="gesamtfazit" class="fazit"></div>
       <div id="verdict" class="verdict"></div>
       <div class="insgrid">
@@ -970,8 +971,8 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
     <!-- VEREIN -->
     <section id="verein">
       <div class="shead"><span class="ic">🏟️</span><div class="tt"><h2>Verein in Zahlen</h2>
-        <p class="sub">Live aus allen aufgezeichneten Spielen — plus EA-Gesamtbilanz seit Vereinsgründung.</p></div>
-        <span class="scope" id="careerScope">—</span></div>
+        <p class="sub">Live aus allen aufgezeichneten Spielen – plus EA-Gesamtbilanz seit Vereinsgründung.</p></div>
+        <span class="scope" id="careerScope">–</span></div>
       <div id="careerKpis" class="kpis"></div>
       <div id="eaBand"></div>
       <div class="gpanels">
@@ -993,7 +994,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
     <section id="form">
       <div class="shead"><span class="ic">📈</span><div class="tt"><h2>Form &amp; Muster</h2>
         <p class="sub">Ergebnisse, Trends und wann es bei euch am besten läuft.</p></div>
-        <span class="scope" id="formScope">—</span></div>
+        <span class="scope" id="formScope">–</span></div>
       <div class="panel">
         <h3 class="panel-h">Tore &amp; Gegentore pro Spiel</h3>
         <p class="panel-sub">Älteste Partie links, neueste rechts. Grün = geschossen, Rot = kassiert.</p>
@@ -1003,34 +1004,34 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
       </div>
       <div class="panel" style="margin-top:16px">
         <h3 class="panel-h">Tordifferenz-Verlauf</h3>
-        <p class="panel-sub" id="gdSub">Aufsummiert über alle aufgezeichneten Spiele — fährt der Strich nach unten, lief's nicht.</p>
+        <p class="panel-sub" id="gdSub">Aufsummiert über alle aufgezeichneten Spiele – fährt der Strich nach unten, lief's nicht.</p>
         <div id="gdTrend"></div>
       </div>
       <div class="panel" style="margin-top:16px">
         <h3 class="panel-h">Team-Note pro Spiel</h3>
-        <p class="panel-sub" id="noteSub">Durchschnittsnote der menschlichen Spieler je Partie — Punktfarbe = Ergebnis.</p>
+        <p class="panel-sub" id="noteSub">Durchschnittsnote der menschlichen Spieler je Partie – Punktfarbe = Ergebnis.</p>
         <div id="noteTrend"></div>
       </div>
       <div class="gpanels">
         <div class="panel"><h3 class="panel-h">Formkurve</h3>
-          <p class="panel-sub" id="formCurveSub">Ø Punkte aus den jeweils letzten 5 Spielen — über der Marke gewinnt ihr öfter, als ihr verliert.</p>
+          <p class="panel-sub" id="formCurveSub">Ø Punkte aus den jeweils letzten 5 Spielen – über der Marke gewinnt ihr öfter, als ihr verliert.</p>
           <div id="formCurve"></div></div>
         <div class="panel"><h3 class="panel-h">Wochentags-Bilanz</h3>
-          <p class="panel-sub" id="wdaySub">An welchen Tagen ihr spielt — und wie es ausgeht.</p>
+          <p class="panel-sub" id="wdaySub">An welchen Tagen ihr spielt – und wie es ausgeht.</p>
           <div class="legend tight"><span><i style="background:var(--win)"></i>Sieg</span><span><i style="background:var(--draw)"></i>Remis</span><span><i style="background:var(--loss)"></i>Pleite</span></div>
           <div id="wdayBox" class="hbars"></div></div>
       </div>
       <div class="gpanels">
         <div class="panel"><h3 class="panel-h">Ergebnis-Matrix</h3>
-          <p class="panel-sub">Wie oft welches Resultat fiel — eigene Tore senkrecht, Gegentore waagerecht.</p>
+          <p class="panel-sub">Wie oft welches Resultat fiel – eigene Tore senkrecht, Gegentore waagerecht.</p>
           <div id="matrixBox"></div></div>
         <div class="panel"><h3 class="panel-h">Session-Analyse</h3>
-          <p class="panel-sub" id="sessSub">Punkte pro Spiel nach Position im Spielabend — Kaltstart oder Schlussspurt?</p>
+          <p class="panel-sub" id="sessSub">Punkte pro Spiel nach Position im Spielabend – Kaltstart oder Schlussspurt?</p>
           <div id="sessBox"></div></div>
       </div>
       <div class="gpanels">
         <div class="panel"><h3 class="panel-h">Liga vs. Playoff</h3>
-          <p class="panel-sub">Gleiche Truppe, anderer Druck — die Bilanz nach Wettbewerb.</p>
+          <p class="panel-sub">Gleiche Truppe, anderer Druck – die Bilanz nach Wettbewerb.</p>
           <div id="splitBox" class="split"></div></div>
         <div class="panel"><h3 class="panel-h">Werte im Schnitt</h3><p class="panel-sub" id="patternsSub"></p>
           <div id="patterns" class="statlist"></div></div>
@@ -1046,7 +1047,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
     <!-- KADER -->
     <section id="kader">
       <div class="shead"><span class="ic">👥</span><div class="tt"><h2>Kader</h2>
-        <p class="sub">Alle Spieler im Vergleich — Klick auf eine Zeile öffnet das Spieler-Profil.</p></div></div>
+        <p class="sub">Alle Spieler im Vergleich – Klick auf eine Zeile öffnet das Spieler-Profil.</p></div></div>
       <div class="panel" style="margin-bottom:16px"><h3 class="panel-h">Kader-Landkarte</h3>
         <p class="panel-sub" id="scatterSub">Jeder Punkt ein Spieler: rechts = mehr Torbeteiligungen, oben = mehr Defensivarbeit (beides pro 90 Min). Punktgröße = Spielzeit.</p>
         <div id="scatterLegend" class="legend tight"></div>
@@ -1062,7 +1063,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
       </div>
       <div class="impgrid">
         <div class="panel"><h3 class="panel-h">Impact: mit ihm läuft's</h3>
-          <p class="panel-sub">Siegquote des Teams, wenn ein Spieler dabei ist — gegen die Spiele ohne ihn.</p>
+          <p class="panel-sub">Siegquote des Teams, wenn ein Spieler dabei ist – gegen die Spiele ohne ihn.</p>
           <div id="impactBox"></div></div>
         <div class="panel"><h3 class="panel-h">Duo-Chemie</h3>
           <p class="panel-sub" id="duoSub">Welche Paarung zusammen am meisten gewinnt (ab 4 gemeinsamen Spielen).</p>
@@ -1073,7 +1074,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
     <!-- DUELL -->
     <section id="duell">
       <div class="shead"><span class="ic">⚔️</span><div class="tt"><h2>Spieler-Duell</h2>
-        <p class="sub">Zwei Spieler gegenüberstellen — im fairen Modus wird jeder an seiner eigenen Position gemessen.</p></div>
+        <p class="sub">Zwei Spieler gegenüberstellen – im fairen Modus wird jeder an seiner eigenen Position gemessen.</p></div>
         <div class="seg" id="h2hMode" style="align-self:center;margin-left:auto"><button data-m="fair" class="on">Fair · Position</button><button data-m="raw">Rohwerte</button></div></div>
       <div class="h2h">
         <div class="h2h-pick">
@@ -1088,15 +1089,15 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
     <!-- EHRUNGEN -->
     <section id="ehren">
       <div class="shead"><span class="ic">🏆</span><div class="tt"><h2>Ehrungen</h2>
-        <p class="sub">Wer im Verein wofür steht — aus allen aufgezeichneten Spielen.</p></div></div>
+        <p class="sub">Wer im Verein wofür steht – aus allen aufgezeichneten Spielen.</p></div></div>
       <div id="awgrid" class="awgrid"></div>
     </section>
 
     <!-- GEGNER -->
     <section id="gegner">
       <div class="shead"><span class="ic">🥊</span><div class="tt"><h2>Gegner-Bilanz</h2>
-        <p class="sub">Gegen wen ihr wie ausseht — sortiert nach Häufigkeit.</p></div>
-        <span class="scope" id="gegnerScope">—</span></div>
+        <p class="sub">Gegen wen ihr wie ausseht – sortiert nach Häufigkeit.</p></div>
+        <span class="scope" id="gegnerScope">–</span></div>
       <div class="tablewrap">
         <div style="overflow-x:auto"><table class="squad" id="oppTable"></table></div>
         <button id="oppMore" class="morebtn" hidden>Alle Gegner anzeigen ▾</button>
@@ -1107,7 +1108,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
     <section id="spiele">
       <div class="shead"><span class="ic">⚽</span><div class="tt"><h2>Alle Spiele</h2>
         <p class="sub" id="spieleSub">Klick auf ein Spiel zeigt die Aufstellung.</p></div>
-        <span class="scope" id="spieleScope">—</span></div>
+        <span class="scope" id="spieleScope">–</span></div>
       <div class="mfilters" id="mfilters">
         <span class="fl">Filter</span>
         <div class="seg" id="filtType"><button data-v="all" class="on">Alle</button><button data-v="leagueMatch">Liga</button><button data-v="playoffMatch">Playoff</button><button data-v="friendlyMatch">Freund.</button></div>
@@ -1132,7 +1133,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
 <script src="data.js"></script>
 <script>
 /* ============================================================
-   PRO CLUBS HUB — 3 Vereine, alles live aus den Spieldaten.
+   PRO CLUBS HUB – 3 Vereine, alles live aus den Spieldaten.
    data.js (Ein-Klick-Updater) traegt die Seite; ourproclub.app
    wird als Live-Bonus je Verein dazugemischt.
    ============================================================ */
@@ -1292,7 +1293,7 @@ function teamRates(P){ let pm=0,pa=0,tm=0,ta=0,sh=0,go=0,red=0;
 
 /* ============================================================ FAIRNESS-ENGINE
    Spieler werden nicht an Rohwerten gemessen, sondern als PERZENTIL
-   innerhalb der EIGENEN Position — Pool: alle Spieler der drei Vereine
+   innerhalb der EIGENEN Position – Pool: alle Spieler der drei Vereine
    mit genug Einsaetzen. Ein Stuermer konkurriert also mit Stuermern,
    ein Verteidiger mit Verteidigern. Alles pro 90 Minuten. */
 let HUB=null; // Cache; wird nach jedem Datenladen neu aufgebaut
@@ -1516,10 +1517,10 @@ function buildInsights(team, P){
   if(rates.red>=1)
     bad.push(G('r',String(rates.red),rates.red===1?'Platzverweis':'Platzverweise','Platzverweise tun weh',
       `${rates.red} Rote in ${team.games} Spielen. In Unterzahl wird die Defensive endgültig löchrig.`,
-      'Saubere Zweikämpfe — bei der Tackle-Quote sind harte Grätschen doppelt riskant.'));
+      'Saubere Zweikämpfe – bei der Tackle-Quote sind harte Grätschen doppelt riskant.'));
   if(team.fts>=2 && (team.fts/team.games)>=0.2)
     bad.push(G('a',String(team.fts),'Spiele ohne Tor','Bei Rückstand verstummt der Angriff',
-      `${team.fts}× kein eigenes Tor — meist die Spiele, die deutlich weggingen.`,
+      `${team.fts}× kein eigenes Tor – meist die Spiele, die deutlich weggingen.`,
       'Auch hinten liegend geduldig herausspielen statt nur lange Bälle.'));
 
   const ord={r:0,a:1,g:2}; bad.sort((a,b)=>ord[a.tone]-ord[b.tone]);
@@ -1527,9 +1528,9 @@ function buildInsights(team, P){
 }
 function buildVerdict(team){
   if(team.gd>=6 && team.winPct>=55) return `Starke Phase: ihr gewinnt die meisten Spiele <b>klar und verdient</b>.`;
-  if(team.avgGf>=1.6 && team.avgGa>=2.2) return `Vorne passt's, hinten nicht. Ihr macht <b>genug Tore, kassiert aber zu viele</b> — daran hängt am Ende die Bilanz.`;
+  if(team.avgGf>=1.6 && team.avgGa>=2.2) return `Vorne passt's, hinten nicht. Ihr macht <b>genug Tore, kassiert aber zu viele</b> – daran hängt am Ende die Bilanz.`;
   if(team.avgGa>=2.2) return `Solange hinten <b>${r1(team.avgGa)} Gegentore pro Spiel</b> fallen, bleibt jeder Sieg Arbeit.`;
-  if(team.gd>=0) return `Ausgeglichene Phase mit Luft nach oben — die <b>Konstanz</b> fehlt noch.`;
+  if(team.gd>=0) return `Ausgeglichene Phase mit Luft nach oben – die <b>Konstanz</b> fehlt noch.`;
   return `Noch zu <b>wackelig</b>: zwischen guten Auftritten und klaren Pleiten ist alles dabei.`;
 }
 function buildGesamtfazit(t, players){
@@ -1542,13 +1543,13 @@ function buildGesamtfazit(t, players){
   const [,note,noteLabel]=grades.find(g=>score>=g[0]);
 
   let identity;
-  if(t.avgGf>=1.7 && t.avgGa<=1.3) identity='Dominant — vorne wie hinten eine Macht';
-  else if(t.avgGf>=2.5 && t.gd>0) identity='Offensiv-Walze — vorne kaum zu stoppen';
-  else if(t.avgGf>=1.6 && t.avgGa>=1.9) identity='Spektakel-Truppe — viele Tore, aber auch viele Gegentore';
-  else if(t.avgGa<=1.2) identity='Defensiv-Bollwerk — hinten brennt kaum etwas an';
-  else if(t.avgGf<=1.0) identity='Offensiv harmlos — vorne fehlt der Durchschlag';
+  if(t.avgGf>=1.7 && t.avgGa<=1.3) identity='Dominant – vorne wie hinten eine Macht';
+  else if(t.avgGf>=2.5 && t.gd>0) identity='Offensiv-Walze – vorne kaum zu stoppen';
+  else if(t.avgGf>=1.6 && t.avgGa>=1.9) identity='Spektakel-Truppe – viele Tore, aber auch viele Gegentore';
+  else if(t.avgGa<=1.2) identity='Defensiv-Bollwerk – hinten brennt kaum etwas an';
+  else if(t.avgGf<=1.0) identity='Offensiv harmlos – vorne fehlt der Durchschlag';
   else if(t.avgGa>=2.1) identity='Offensiv okay, defensiv das Sorgenkind';
-  else identity='Ausgeglichen — ohne klares Übergewicht in eine Richtung';
+  else identity='Ausgeglichen – ohne klares Übergewicht in eine Richtung';
 
   const chrono=t.form;
   const half=Math.floor(chrono.length/2);
@@ -1564,7 +1565,7 @@ function buildGesamtfazit(t, players){
   const top=players.slice().sort((a,b)=>b.goals-a.goals)[0];
   const totalG=t.gf||1;
   const reliance = top && top.goals>=3 && (top.goals/totalG)>=0.3
-    ? `${top.name} trägt mit ${top.goals} der ${t.gf} Tore (${pct(100*top.goals/totalG)}) die Offensive — fällt er aus, wird's vorne dünn. `
+    ? `${top.name} trägt mit ${top.goals} der ${t.gf} Tore (${pct(100*top.goals/totalG)}) die Offensive – fällt er aus, wird's vorne dünn. `
     : (top && top.goals>0 ? `Die Tore verteilen sich auf mehrere Schultern, ${top.name} vorneweg (${top.goals}). ` : '');
   const defNote = t.avgGa>=1.9 ? `Größter Hebel bleibt die Defensive: ${r1(t.avgGa)} Gegentore pro Spiel. `
     : t.avgGa<=1.2 && t.games>=5 ? `Die Defensive ist das Pfund: nur ${r1(t.avgGa)} Gegentore pro Spiel. ` : '';
@@ -1723,7 +1724,7 @@ function renderHero(){
   setCount('chipWin',Math.round(wr)+'%');
   setCount('chipGd',(team.gd>=0?'+':'')+team.gd);
   const st=team.streakType, sl=team.streakLen;
-  $('chipForm').textContent= sl ? `${sl}× ${st==='W'?'Sieg':st==='L'?'Pleite':'Remis'}` : '—';
+  $('chipForm').textContent= sl ? `${sl}× ${st==='W'?'Sieg':st==='L'?'Pleite':'Remis'}` : '–';
   const R=33, circ=2*Math.PI*R, off=circ*(1-clamp(wr/100,0,1));
   $('heroGauge').innerHTML=`<svg viewBox="0 0 86 86"><circle class="bg" cx="43" cy="43" r="${R}"/>
     <circle class="fg" cx="43" cy="43" r="${R}" stroke-dasharray="${circ}" stroke-dashoffset="${circ}" data-off="${off}"/></svg>
@@ -1766,7 +1767,7 @@ function insCard(i){ const lbl=i.tone==='g'?'Tipp':'Ansatz';
 function renderInsights(){
   const ins=S.insights;
   $('goodList').innerHTML=ins.good.map(insCard).join('')||'<div class="ins"><p class="ins-why">Noch keine klaren Pluspunkte.</p></div>';
-  $('badList').innerHTML=ins.bad.map(insCard).join('')||'<div class="ins"><p class="ins-why">Keine großen Schwächen — stark.</p></div>';
+  $('badList').innerHTML=ins.bad.map(insCard).join('')||'<div class="ins"><p class="ins-why">Keine großen Schwächen – stark.</p></div>';
   $('goodTag').textContent=ins.good.length+' Punkte'; $('badTag').textContent=ins.bad.length+' Punkte';
 }
 
@@ -1786,43 +1787,77 @@ function renderCareerKpis(){
     kpi('Tordifferenz',(gd>=0?'+':'')+gd,`${t.gf} : ${t.ga}`,gd>=0?'pos':'neg'),
     kpi('Zu-Null',t.cs,Math.round(csPct)+'% der Spiele',t.cs>=t.games*0.3?'pos':''),
     kpi('Ohne eigenes Tor',t.fts,Math.round(ftsPct)+'% der Spiele',t.fts>=t.games*0.3?'neg':''),
-    kpi('Höchster Sieg',t.biggestWin?`${t.biggestWin.m.ourGoals}:${t.biggestWin.m.oppGoals}`:'—',t.biggestWin?t.biggestWin.m.oppName:''),
-    kpi('Höchste Pleite',t.biggestLoss?`${t.biggestLoss.m.ourGoals}:${t.biggestLoss.m.oppGoals}`:'—',t.biggestLoss?t.biggestLoss.m.oppName:''),
+    kpi('Höchster Sieg',t.biggestWin?`${t.biggestWin.m.ourGoals}:${t.biggestWin.m.oppGoals}`:'–',t.biggestWin?t.biggestWin.m.oppName:''),
+    kpi('Höchste Pleite',t.biggestLoss?`${t.biggestLoss.m.ourGoals}:${t.biggestLoss.m.oppGoals}`:'–',t.biggestLoss?t.biggestLoss.m.oppName:''),
     kpi('Serie ungeschlagen',t.longestUnbeaten,'Spiele am Stück'),
     kpi('Kader',S.players.length,'erfasste Spieler'),
   ].join('');
 }
+// Eine Zelle der EA-Leiste – überall dieselbe Vorlage.
+// cls erweitert die Wert-Klasse (z. B. 'txt' für Text statt Riesenzahl).
+function ebCell(v,k,s,cls){
+  return `<div class="eb"><div class="v${cls?' '+cls:''}">${v}</div><div class="k">${esc(k)}</div>${s?`<div class="s">${esc(s)}</div>`:''}</div>`;
+}
 function renderEaBand(){
-  const ov=S.ea && S.ea.overall;
-  if(!ov){ $('eaBand').innerHTML=''; return; }
-  const w=num(ov.wins),d=num(ov.ties),l=num(ov.losses),gp=num(ov.gamesPlayed);
-  const wr=gp?Math.round(100*w/gp):0;
-  const ts=S.ea.fetchedAt?new Date(S.ea.fetchedAt*1000).toLocaleDateString('de-DE'):null;
-  const eb=(v,k,s)=>`<div class="eb"><div class="v">${v}</div><div class="k">${esc(k)}</div>${s?`<div class="s">${esc(s)}</div>`:''}</div>`;
+  const ea=S.ea||{}, ov=ea.overall;
+  const ts=ea.fetchedAt?new Date(ea.fetchedAt*1000).toLocaleDateString('de-DE'):null;
+  let cells='';
+  if(ov){
+    const w=num(ov.wins),d=num(ov.ties),l=num(ov.losses),gp=num(ov.gamesPlayed);
+    const wr=gp?Math.round(100*w/gp):0;
+    cells+=
+      ebCell(`<span data-count="${num(ov.skillRating)}">${num(ov.skillRating)}</span>`,'Skill-Rating','Vereinswertung')+
+      ebCell(`<span data-count="${gp}">${gp}</span>`,'Spiele allzeit',`${num(ov.leagueAppearances)} Liga · ${num(ov.gamesPlayedPlayoff)} Playoff`)+
+      ebCell(`${w}<small>S</small> ${d}<small>U</small> ${l}<small>N</small>`,'Bilanz',`${wr}% Siege`)+
+      ebCell(`<span data-count="${num(ov.goals)}">${num(ov.goals)}</span>`,'Tore allzeit',`${num(ov.goalsAgainst)} Gegentore`)+
+      ebCell(`Div ${num(ov.bestDivision)||'–'}`,'Beste Division','je erreicht')+
+      ebCell(`${num(ov.promotions)}<small>▲</small> ${num(ov.relegations)}<small>▼</small>`,'Auf-/Abstiege','Ligahistorie')+
+      ebCell(`${num(ov.wstreak)}<small>S</small> · ${num(ov.unbeatenstreak)}`,'Serie laut EA','Siege · ungeschlagen')+
+      divTitleCell(ov);
+  }
+  // Auch ohne overall (EA-Endpunkt geblockt) zeigen, was da ist:
+  // Saison-Snapshot, Heimstadion, Playoff-Historie.
+  cells+=seasonalCells()+stadiumCell()+playoffCells();
+  if(!cells){ $('eaBand').innerHTML=''; return; }
   $('eaBand').innerHTML=`<div class="eaband">
     <img class="crest-wm" src="${CUR.logo}" alt="">
     <div class="eb-head"><b>EA-Gesamtbilanz seit Gründung</b><span>Snapshot direkt von EA${ts?` · Stand ${ts}`:''}</span></div>
-    <div class="eb-grid">
-      ${eb(`<span data-count="${num(ov.skillRating)}">${num(ov.skillRating)}</span>`,'Skill-Rating','Vereinswertung')}
-      ${eb(`<span data-count="${gp}">${gp}</span>`,'Spiele allzeit',`${num(ov.leagueAppearances)} Liga · ${num(ov.gamesPlayedPlayoff)} Playoff`)}
-      ${eb(`${w}<small>S</small> ${d}<small>U</small> ${l}<small>N</small>`,'Bilanz',`${wr}% Siege`)}
-      ${eb(`<span data-count="${num(ov.goals)}">${num(ov.goals)}</span>`,'Tore allzeit',`${num(ov.goalsAgainst)} Gegentore`)}
-      ${eb(`Div ${num(ov.bestDivision)||'–'}`,'Beste Division','je erreicht')}
-      ${eb(`${num(ov.promotions)}<small>▲</small> ${num(ov.relegations)}<small>▼</small>`,'Auf-/Abstiege','Ligahistorie')}
-      ${eb(`${num(ov.wstreak)}<small>S</small> · ${num(ov.unbeatenstreak)}`,'Serie laut EA','Siege · ungeschlagen')}
-      ${seasonalCells()}
-    </div></div>`;
+    <div class="eb-grid">${cells}</div></div>`;
 }
-// Saison-Snapshot (seasonalStats) — nur rendern, was EA wirklich liefert
+// Division-Titel (Gruppe-1-Abschlüsse) – nur zeigen, wenn es welche gibt
+function divTitleCell(ov){
+  let t=0; for(let d=1;d<=6;d++) t+=num(ov['finishesInDivision'+d+'Group1']);
+  if(!t) return '';
+  return ebCell(String(t),'Divisionstitel','Gruppe-1-Abschlüsse');
+}
+// Heimstadion aus dem Vereinsprofil (clubs/info)
+function stadiumCell(){
+  const inf=S.ea&&S.ea.info, st=inf&&inf.customKit&&inf.customKit.stadName;
+  if(!st) return '';
+  return ebCell(esc(st),'Heimstadion','Vereinsprofil','txt');
+}
+// Playoff-Historie je Saison (club/playoffAchievements)
+function playoffCells(){
+  const pl=S.ea&&S.ea.playoffs;
+  if(!Array.isArray(pl)||!pl.length) return '';
+  return pl.slice().sort((a,b)=>num(b.seasonId)-num(a.seasonId)).slice(0,4).map(p=>{
+    // Saisonnummer steckt im Namen ('CLUBS_LEAGUE_SEASON_08' -> 8);
+    // die seasonId ist nur eine interne Zählung und dient als Notnagel.
+    const sn=String(p.seasonName||'').match(/(\d+)\s*$/);
+    const season=sn?num(sn[1]):num(p.seasonId);
+    const label=season>0&&season<1000?`Playoff · Saison ${season}`:'Playoff-Historie';
+    return ebCell(`Div ${num(p.bestDivision)||'–'}`,label,`Endgruppe ${num(p.bestFinishGroup)||'–'}`);
+  }).join('');
+}
+// Saison-Snapshot (seasonalStats) – nur rendern, was EA wirklich liefert
 function seasonalCells(){
   const se=S.ea&&S.ea.seasonal;
   if(!se||typeof se!=='object') return '';
-  const eb=(v,k,s)=>`<div class="eb"><div class="v">${v}</div><div class="k">${esc(k)}</div>${s?`<div class="s">${esc(s)}</div>`:''}</div>`;
   let out='';
-  if(se.currentDivision!=null) out+=eb(`Div ${num(se.currentDivision)}`,'Division aktuell','laufende Saison');
+  if(se.currentDivision!=null) out+=ebCell(`Div ${num(se.currentDivision)}`,'Division aktuell','laufende Saison');
   const titles=num(se.divsWon1)+num(se.divsWon2)+num(se.divsWon3)+num(se.divsWon4)+num(se.leaguesWon)+num(se.titlesWon);
-  if(titles>0) out+=eb(String(titles),'Titel','Divisionen & Ligen');
-  if(se.seasons!=null&&num(se.seasons)>0) out+=eb(String(num(se.seasons)),'Saisons','gespielt');
+  if(titles>0) out+=ebCell(String(titles),'Titel','Divisionen & Ligen');
+  if(se.seasons!=null&&num(se.seasons)>0) out+=ebCell(String(num(se.seasons)),'Saisons','gespielt');
   return out;
 }
 function donut(segs, centerVal, centerLabel){
@@ -1864,7 +1899,10 @@ function renderChart(){
   $('chart').innerHTML=f.map((x,i)=>{ const hf=x.gf/maxV*100, hg=x.ga/maxV*100, d=Math.min(i*22,600);
     return `<div class="bargrp"><div class="tip">${x.gf}:${x.ga} · ${esc(x.opp)}</div>
       <div class="bars"><div class="bar gf" style="height:${hf.toFixed(1)}%;transition-delay:${d}ms"></div><div class="bar ga" style="height:${hg.toFixed(1)}%;transition-delay:${d+40}ms"></div></div></div>`;}).join('');
-  $('chartX').innerHTML=f.map(x=>`<span>${x.gf}:${x.ga}</span>`).join('');
+  // Bei vielen Spielen nur jedes n-te Label – sonst wird jede Zahl
+  // auf ~15px zusammengequetscht und als '2…' abgeschnitten.
+  const step=Math.max(1,Math.ceil(f.length/20));
+  $('chartX').innerHTML=f.map((x,i)=>`<span>${i%step===0?`${x.gf}:${x.ga}`:''}</span>`).join('');
   // Endhöhe steht sofort im Layout; nur transform animiert (GPU, kein Reflow)
   onView($('chart'),()=>document.querySelectorAll('#chart .bar').forEach(b=>b.style.transform='scaleY(1)'));
 }
@@ -1875,7 +1913,7 @@ function gdTrendChart(form){
   const X=i=>padX+i*(w-2*padX)/(n-1), Y=v=>padT+(mx-v)/span*(h-padT-padB), zeroY=Y(0);
   const line=series.map((s,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(s.v).toFixed(1)).join(' ');
   const area=line+` L${X(n-1).toFixed(1)} ${zeroY.toFixed(1)} L${X(0).toFixed(1)} ${zeroY.toFixed(1)} Z`;
-  const dots=series.map((s,i)=> i===0?'':`<circle class="tdot" cx="${X(i).toFixed(1)}" cy="${Y(s.v).toFixed(1)}" r="5"><title>Spiel ${i}: ${esc(s.f.opp)} ${s.f.gf}:${s.f.ga} — Saldo ${s.v>=0?'+':''}${s.v}</title></circle>`).join('');
+  const dots=series.map((s,i)=> i===0?'':`<circle class="tdot" cx="${X(i).toFixed(1)}" cy="${Y(s.v).toFixed(1)}" r="5"><title>Spiel ${i}: ${esc(s.f.opp)} ${s.f.gf}:${s.f.ga} – Saldo ${s.v>=0?'+':''}${s.v}</title></circle>`).join('');
   return `<svg class="trend" viewBox="0 0 ${w} ${h}">
       <defs><linearGradient id="tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${cssVar('--acc')}" stop-opacity=".22"/><stop offset="1" stop-color="${cssVar('--acc')}" stop-opacity="0"/></linearGradient></defs>
       <line class="tzero" x1="${padX}" y1="${zeroY.toFixed(1)}" x2="${w-padX}" y2="${zeroY.toFixed(1)}"/>
@@ -1886,7 +1924,7 @@ function gdTrendChart(form){
     </svg>`;
 }
 function renderGdTrend(){
-  $('gdSub').textContent=`Aufsummiert über alle ${S.team.games} aufgezeichneten Spiele — fährt der Strich nach unten, lief's nicht.`;
+  $('gdSub').textContent=`Aufsummiert über alle ${S.team.games} aufgezeichneten Spiele – fährt der Strich nach unten, lief's nicht.`;
   $('gdTrend').innerHTML=gdTrendChart(S.team.form);
   onView($('gdTrend'),()=>{ const l=document.querySelector('#gdTrend .tline'); if(l) l.style.strokeDashoffset='0'; });
 }
@@ -1899,7 +1937,7 @@ function ratingTrendChart(rf){
   const line=rf.map((x,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(x.note).toFixed(1)).join(' ');
   const area=line+` L${X(n-1).toFixed(1)} ${h-padB} L${X(0).toFixed(1)} ${h-padB} Z`;
   const ref=6.5, refY=Y(clamp(ref,mn,mx));
-  const dots=rf.map((x,i)=>`<circle class="ntdot ${x.r==='W'?'w':x.r==='L'?'l':'d'}" cx="${X(i).toFixed(1)}" cy="${Y(x.note).toFixed(1)}" r="4.5"><title>${esc(x.opp)} ${x.gf}:${x.ga} — Ø-Note ${r2(x.note)}</title></circle>`).join('');
+  const dots=rf.map((x,i)=>`<circle class="ntdot ${x.r==='W'?'w':x.r==='L'?'l':'d'}" cx="${X(i).toFixed(1)}" cy="${Y(x.note).toFixed(1)}" r="4.5"><title>${esc(x.opp)} ${x.gf}:${x.ga} – Ø-Note ${r2(x.note)}</title></circle>`).join('');
   return `<svg class="trend" viewBox="0 0 ${w} ${h}">
       <defs><linearGradient id="ng" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${cssVar('--acc')}" stop-opacity=".18"/><stop offset="1" stop-color="${cssVar('--acc')}" stop-opacity="0"/></linearGradient></defs>
       ${ref>=mn&&ref<=mx?`<line class="tzero" x1="${padX}" y1="${refY.toFixed(1)}" x2="${w-padX}" y2="${refY.toFixed(1)}"/>
@@ -1912,7 +1950,7 @@ function renderNoteTrend(){
   if(rf.length<2){ $('noteTrend').innerHTML='<p class="panel-sub" style="margin:0">Zu wenige Spiele mit Notendaten.</p>'; return; }
   const avg=rf.reduce((a,x)=>a+x.note,0)/rf.length;
   const best=rf.slice().sort((a,b)=>b.note-a.note)[0];
-  $('noteSub').innerHTML=`Durchschnittsnote der menschlichen Spieler je Partie — Punktfarbe = Ergebnis. Gesamtschnitt: <b>${r2(avg)}</b> · stärkster Auftritt: <b>${r2(best.note)}</b> vs ${esc(best.opp)}.`;
+  $('noteSub').innerHTML=`Durchschnittsnote der menschlichen Spieler je Partie – Punktfarbe = Ergebnis. Gesamtschnitt: <b>${r2(avg)}</b> · stärkster Auftritt: <b>${r2(best.note)}</b> vs ${esc(best.opp)}.`;
   $('noteTrend').innerHTML=ratingTrendChart(rf);
   onView($('noteTrend'),()=>{ const l=document.querySelector('#noteTrend .tline'); if(l) l.style.strokeDashoffset='0'; });
 }
@@ -1933,7 +1971,7 @@ function renderContrib(){
   const rows=top.map(p=>({name:p.name,g:p.goals,a:p.assists}));
   if(rest.length) rows.push({name:`Weitere (${rest.length})`,g:rest.reduce((s,p)=>s+p.goals,0),a:rest.reduce((s,p)=>s+p.assists,0)});
   const max=Math.max(...rows.map(r=>r.g+r.a));
-  $('contribSub').textContent=`Tore und Vorlagen gestapelt — alle ${S.team.games} aufgezeichneten Spiele.`;
+  $('contribSub').textContent=`Tore und Vorlagen gestapelt – alle ${S.team.games} aufgezeichneten Spiele.`;
   $('contribBox').innerHTML=rows.map((r,i)=>`<div class="hrow" title="${esc(r.name)}: ${r.g} Tore · ${r.a} Vorlagen">
       <span class="hname">${esc(r.name)}</span>
       <div class="htrack">${r.g?`<i class="hg" style="width:${(100*r.g/max).toFixed(1)}%;--hd:${i*45}ms"></i>`:''}${r.a?`<i class="ha" style="width:${(100*r.a/max).toFixed(1)}%;--hd:${i*45+60}ms"></i>`:''}</div>
@@ -1944,7 +1982,7 @@ function renderMins(){
   const ps=S.players.filter(p=>p.mins>0).sort((a,b)=>b.mins-a.mins).slice(0,10);
   if(!ps.length){ $('minsSub').textContent='Noch keine Spielzeiten erfasst.'; $('minsBox').innerHTML=''; return; }
   const max=Math.max(...ps.map(p=>p.mins));
-  $('minsSub').textContent='Wer am längsten auf dem Platz steht — Minuten gesamt (Top 10).';
+  $('minsSub').textContent='Wer am längsten auf dem Platz steht – Minuten gesamt (Top 10).';
   $('minsBox').innerHTML=ps.map((p,i)=>`<div class="hrow" title="${esc(p.name)}: ${Math.round(p.mins)} Minuten in ${p.gp} Spielen">
       <span class="hname">${esc(p.name)}</span>
       <div class="htrack"><i class="hg" style="width:${(100*p.mins/max).toFixed(1)}%;--hd:${i*45}ms"></i></div>
@@ -1957,7 +1995,7 @@ function renderFormCurve(){
   const res=f=>f.r==='W'?3:f.r==='D'?1:0;
   const pts=form.map((_,i)=>{ const win=form.slice(Math.max(0,i-4),i+1);
     return win.reduce((s,f)=>s+res(f),0)/win.length; });
-  // viewBox 560: das Panel ist halbbreit — so bleiben die Beschriftungen lesbar
+  // viewBox 560: das Panel ist halbbreit – so bleiben die Beschriftungen lesbar
   const w=560,h=210,padL=26,padR=92,padT=14,padB=16,n=pts.length;
   const X=i=>n>1?padL+i*(w-padL-padR)/(n-1):w/2, Y=v=>padT+(3-v)/3*(h-padT-padB);
   const line=pts.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ');
@@ -1973,7 +2011,7 @@ function renderFormCurve(){
       <circle class="tdot" cx="${X(n-1).toFixed(1)}" cy="${Y(cur).toFixed(1)}" r="5"/>
       <text class="tlbl" x="${(X(n-1)+12).toFixed(1)}" y="${(Y(cur)+4).toFixed(1)}" style="font-weight:700;fill:var(--strong);font-size:11px">Ø letzte 5: ${r2(cur)}</text>
     </svg>`;
-  $('formCurveSub').textContent=`Ø Punkte aus den jeweils letzten 5 Spielen (0–3). Aktuell: ${r2(cur)} — Gesamtschnitt ${r2(S.team.ppg)}.`;
+  $('formCurveSub').textContent=`Ø Punkte aus den jeweils letzten 5 Spielen (0–3). Aktuell: ${r2(cur)} – Gesamtschnitt ${r2(S.team.ppg)}.`;
   onView($('formCurve'),()=>{ const l=document.querySelector('#formCurve .tline'); if(l) l.style.strokeDashoffset='0'; });
 }
 function renderWday(){
@@ -1985,10 +2023,10 @@ function renderWday(){
   const rows=[1,2,3,4,5,6,0].filter(d=>agg[d]).map(day=>({day,c:agg[day]}));
   if(!rows.length){ $('wdayBox').innerHTML=''; return; }
   const max=Math.max(...rows.map(r=>r.c.w+r.c.d+r.c.l));
-  $('wdaySub').textContent=`${rows.length} Spieltage pro Woche — Balkenlänge = Spiele, Farbe = Ausgang.`;
+  $('wdaySub').textContent=`${rows.length} Spieltage pro Woche – Balkenlänge = Spiele, Farbe = Ausgang.`;
   $('wdayBox').innerHTML=rows.map((r,i)=>{ const c=r.c, gp=c.w+c.d+c.l, ppg=(3*c.w+c.d)/gp;
     const seg=(v,cls,extra)=>v?`<i class="${cls}" style="width:${(100*v/max).toFixed(1)}%;--hd:${i*45+(extra||0)}ms"></i>`:'';
-    return `<div class="hrow" title="${names[r.day]}: ${c.w}S ${c.d}U ${c.l}N aus ${gp} — ${r2(ppg)} Punkte/Spiel">
+    return `<div class="hrow" title="${names[r.day]}: ${c.w}S ${c.d}U ${c.l}N aus ${gp} – ${r2(ppg)} Punkte/Spiel">
       <span class="hname">${short[r.day]} · ${gp} Sp.</span>
       <div class="htrack">${seg(c.w,'w',0)}${seg(c.d,'d',50)}${seg(c.l,'l',100)}</div>
       <span class="hval">${r2(ppg)} P/Sp</span></div>`;
@@ -2014,7 +2052,7 @@ function renderScatter(){
   const labelled=new Set(pts.slice().sort((a,b)=>(b.x/maxX+b.y/maxY)-(a.x/maxX+a.y/maxY)).slice(0,4).map(t=>t.p.name));
   const dots=pts.map((t,i)=>{ const r=5.5+Math.sqrt(t.p.mins/maxM)*6.5;
     const cx=X(t.x).toFixed(1), cy=Y(t.y).toFixed(1);
-    const tip=`${t.p.name} · ${POS_MAP[t.p.pos]||'—'} — ${r2(t.x)} Torbeteil./90 · ${r2(t.y)} Defensivakt./90 · ${Math.round(t.p.mins)} min`;
+    const tip=`${t.p.name} · ${POS_MAP[t.p.pos]||'–'} – ${r2(t.x)} Torbeteil./90 · ${r2(t.y)} Defensivakt./90 · ${Math.round(t.p.mins)} min`;
     const lbl=labelled.has(t.p.name)?`<text class="pname" x="${(+cx+(+cx>w-150?-(r+7):r+7)).toFixed(1)}" y="${(+cy+3.5).toFixed(1)}" ${+cx>w-150?'text-anchor="end"':''}>${esc(t.p.name)}</text>`:'';
     return `<g><circle class="phit" cx="${cx}" cy="${cy}" r="${Math.max(r+8,14)}"><title>${esc(tip)}</title></circle>
       <circle class="pdot" cx="${cx}" cy="${cy}" r="${r.toFixed(1)}" fill="${POS_COL[t.p.pos]||'#888'}" style="--sd:${i*40}ms"><title>${esc(tip)}</title></circle>${lbl}</g>`;
@@ -2027,7 +2065,7 @@ function renderScatter(){
   const counts={}; ps.forEach(p=>counts[p.pos]=(counts[p.pos]||0)+1);
   $('scatterLegend').innerHTML=['goalkeeper','defender','midfielder','forward'].filter(k=>counts[k])
     .map(k=>`<span><i style="background:${POS_COL[k]};border-radius:50%"></i>${POS_MAP[k]} (${counts[k]})</span>`).join('');
-  $('scatterSub').textContent=`Jeder Punkt ein Spieler (ab 30 Min Spielzeit): rechts = mehr Torbeteiligungen, oben = mehr Defensivarbeit — beides pro 90 Min. Punktgröße = Spielzeit. Berühren zeigt Details.`;
+  $('scatterSub').textContent=`Jeder Punkt ein Spieler (ab 30 Min Spielzeit): rechts = mehr Torbeteiligungen, oben = mehr Defensivarbeit – beides pro 90 Min. Punktgröße = Spielzeit. Berühren zeigt Details.`;
   onView($('scatterBox'),()=>document.querySelectorAll('#scatterBox .pdot').forEach(d=>d.classList.add('in')));
 }
 
@@ -2041,7 +2079,7 @@ function renderMatrix(){
       const v=grid[r][c];
       const bg=v?`background:${accRgba(0.14+0.72*(v/mx))}`:'';
       const diag=r===c?' diag':'';
-      rows+=`<td class="${v?'hit':''}${diag}" style="${bg}" title="${r===N-1?(N-1)+'+':r}:${c===N-1?(N-1)+'+':c} — ${v}×">${v||''}</td>`;
+      rows+=`<td class="${v?'hit':''}${diag}" style="${bg}" title="${r===N-1?(N-1)+'+':r}:${c===N-1?(N-1)+'+':c} – ${v}×">${v||''}</td>`;
     }
     rows+='</tr>';
   }
@@ -2059,12 +2097,12 @@ function renderSessions(){
   $('sessSub').innerHTML=`${se.count} Spielabende · im Schnitt ${r1(se.avgLen)} Partien pro Abend`+
     (se.best?` · bester Abend: <b>${se.best.w} Siege aus ${se.best.n}</b> am ${fmtDay(se.best.date)}`:'');
   $('sessBox').innerHTML=`<div class="sess">`+se.slots.map(s=>{
-      if(!s.gp) return `<div class="sg"><div class="sval" style="opacity:.3">—</div><div class="sbar" style="height:2%"></div></div>`;
+      if(!s.gp) return `<div class="sg"><div class="sval" style="opacity:.3">–</div><div class="sbar" style="height:2%"></div></div>`;
       const h=Math.max(4,s.ppg/3*100);
       return `<div class="sg"><div class="sval">${r2(s.ppg)}</div>
         <div class="sbar ${s.ppg===bestPpg?'best':''}" style="height:${h}%" data-h="${h}" title="${s.lbl}: ${s.w}S ${s.d}U ${s.l}N aus ${s.gp}"></div></div>`;
     }).join('')+`</div>
-    <div class="sess-x">`+se.slots.map(s=>`<span>${s.lbl}<b>${s.gp?`${s.w}S ${s.d}U ${s.l}N`:'—'}</b></span>`).join('')+`</div>
+    <div class="sess-x">`+se.slots.map(s=>`<span>${s.lbl}<b>${s.gp?`${s.w}S ${s.d}U ${s.l}N`:'–'}</b></span>`).join('')+`</div>
     <p class="panel-sub" style="margin:10px 0 0">Punkte pro Spiel (max 3) je Position im Abend.</p>`;
   onView($('sessBox'),()=>document.querySelectorAll('#sessBox .sbar[data-h]').forEach(b=>b.style.transform='scaleY(1)'));
 }
@@ -2087,8 +2125,8 @@ function renderPatterns(){
     ['Punkte/Spiel · letzte 10',r2(t.ppgL10)+(t.games>10?(t.ppgL10>=t.ppg+0.15?' · besser als Gesamtschnitt':t.ppgL10<=t.ppg-0.15?' · unter Gesamtschnitt':' · stabil'):''),t.ppgL10>=t.ppg?'win':'loss'],
     ['Zu-Null-Spiele',`${t.cs} / ${t.games}`,t.cs>=t.games*0.3?'win':'draw'],['Spiele mit 4+ Gegentoren',String(t.conceded4),t.conceded4>=2?'loss':'draw'],
     ['Passquote',pct(rates.pass),rates.pass>=75?'win':'draw'],['Tackle-Quote',pct(rates.tkl),rates.tkl>=45?'win':'loss'],['Schussverwertung',pct(rates.conv),rates.conv>=15?'win':'draw'],
-    ['Ø Sieghöhe',t.winMargins.length?'+'+r1(t.avgWinMargin):'—','win'],
-    ['Ø Pleitenhöhe',t.lossMargins.length?'−'+r1(t.avgLossMargin):'—','loss'],
+    ['Ø Sieghöhe',t.winMargins.length?'+'+r1(t.avgWinMargin):'–','win'],
+    ['Ø Pleitenhöhe',t.lossMargins.length?'−'+r1(t.avgLossMargin):'–','loss'],
     ['Menschliche Spieler pro Partie',r1(t.avgHumans),'draw']];
   const aiGoals=t.gf-S.players.reduce((a,p)=>a+p.goals,0);
   if(aiGoals>0) rows.push(['Tore der KI-Mitspieler',`${aiGoals} von ${t.gf}`,'draw']);
@@ -2124,14 +2162,14 @@ function renderRecords(){
   $('records').innerHTML=rows.map(([k,v,c])=>`<div class="srow"><span class="k"><span class="dotmark" style="background:var(--${c})"></span>${k}</span><span class="v">${esc(v)}</span></div>`).join('');
 }
 /* ============================================================ KADER-TABELLE */
-const dash=()=>'<span style="color:var(--faint)">—</span>';
+const dash=()=>'<span style="color:var(--faint)">–</span>';
 const P90_KEYS=new Set(['goals','assists','ga','shots','interceptions','dribbles']);
 const COLS_RECENT=[
   {key:'name',lbl:'Spieler',lft:true,fmt:p=>playerCell(p)},
   {key:'gp',lbl:'Sp',t:'Spiele',fmt:p=>p.gp},
   {key:'mins',lbl:'Min',t:'Gespielte Minuten',fmt:p=>Math.round(p.mins),raw:p=>p.mins},
   {key:'avgRating',lbl:'Note',t:'Ø-Note (nur bewertete Einsätze)',fmt:p=>rateBadge(p.avgRating),hi:true,raw:p=>p.avgRating},
-  {key:'form5',lbl:'Form',t:'Ø-Note der letzten 5 Einsätze — Pfeil: Richtung gegenüber davor',fmt:p=>formCell(p),hi:true,raw:p=>p.form5n>=3?p.form5:-1},
+  {key:'form5',lbl:'Form',t:'Ø-Note der letzten 5 Einsätze – Pfeil: Richtung gegenüber davor',fmt:p=>formCell(p),hi:true,raw:p=>p.form5n>=3?p.form5:-1},
   {key:'goals',lbl:'Tore',fmt:p=>val(p,'goals'),hi:true},
   {key:'assists',lbl:'Vorl.',fmt:p=>val(p,'assists'),hi:true},
   {key:'secondAssists',lbl:'2.V',t:'Zweite Vorlagen (Vorlage zur Vorlage)',fmt:p=>p.secondAssists||dash(),hi:true},
@@ -2162,7 +2200,7 @@ const COLS_EA=[
   {key:'winRate',lbl:'Win%',t:'Siegquote laut EA',fmt:p=>p.winRate!=null?pct(p.winRate):dash(),hi:true,raw:p=>p.winRate==null?-1:p.winRate},
   {key:'ovr',lbl:'OVR',t:'Pro-Gesamtstärke',fmt:p=>p.ovr?`<b>${p.ovr}</b>`:dash(),hi:true,raw:p=>p.ovr||-1},
 ];
-function val(p,key){ if(UI.perMode==='p90'&&P90_KEYS.has(key)) return p.mins>0?r1(p.per90(key)):'—'; return p[key]; }
+function val(p,key){ if(UI.perMode==='p90'&&P90_KEYS.has(key)) return p.mins>0?r1(p.per90(key)):'–'; return p[key]; }
 function rawVal(p,key,cols){ if(UI.scope==='recent'&&UI.perMode==='p90'&&P90_KEYS.has(key)) return p.mins>0?p.per90(key):-1;
   const c=cols.find(c=>c.key===key); return c&&c.raw?c.raw(p):(typeof p[key]==='number'?p[key]:0); }
 function rateBadge(r){ return `<span class="ratebadge" style="background:${ratingColor(r)}">${r2(r)}</span>`; }
@@ -2174,12 +2212,12 @@ function formCell(p){
 function playerCell(p){
   const low=p.gp<MIN_GP?`<span class="lowtag" title="wenig Spiele">${p.gp} Sp.</span>`:'';
   return `<div class="pname"><div class="pavatar" style="background:${colorFor(p.name)}">${initials(p.name)}</div>
-    <div class="pmeta"><b>${esc(p.name)}${low}</b><span>${POS_MAP[p.pos]||'—'}${p.arch?' · '+(ARCH_MAP[p.arch]||''):''}</span></div></div>`;
+    <div class="pmeta"><b>${esc(p.name)}${low}</b><span>${POS_MAP[p.pos]||'–'}${p.arch?' · '+(ARCH_MAP[p.arch]||''):''}</span></div></div>`;
 }
 function playerCellEa(p){
   const sub=[POS_MAP[p.pos]||null, p.height?p.height+' cm':null].filter(Boolean).join(' · ');
   return `<div class="pname"><div class="pavatar" style="background:${colorFor(p.name)}">${initials(p.name)}</div>
-    <div class="pmeta"><b>${esc(p.name)}</b><span>${esc(sub||'—')}</span></div></div>`;
+    <div class="pmeta"><b>${esc(p.name)}</b><span>${esc(sub||'–')}</span></div></div>`;
 }
 function eaRows(){
   const carMap=byNameMax(S.ea.membersCareer,'gamesPlayed');
@@ -2205,7 +2243,7 @@ function renderSquad(){
   const data=ea?eaRows():S.players;
   $('squadPer').hidden=ea;
   if(ea && !data.length){
-    $('squad').innerHTML=`<tbody><tr><td class="lft" style="padding:18px">Keine EA-Karrierewerte im Snapshot — einmal den Updater laufen lassen.</td></tr></tbody>`;
+    $('squad').innerHTML=`<tbody><tr><td class="lft" style="padding:18px">Keine EA-Karrierewerte im Snapshot – einmal den Updater laufen lassen.</td></tr></tbody>`;
     $('squadHint').textContent=''; return;
   }
   $('squadHint').innerHTML= ea
@@ -2292,23 +2330,23 @@ function renderH2H(){
       let winA=false,winB=false;
       if(ra&&rb){ if(ra.pct>rb.pct+0.5){aWins++;winA=true;} else if(rb.pct>ra.pct+0.5){bWins++;winB=true;} }
       const cell=(r,who,win)=>{
-        if(!r) return `<div class="h2h-cell ${who}"><span class="h2h-val" style="color:var(--faint)">—</span><div class="h2h-bar ${who}" style="flex:1"></div></div>`;
+        if(!r) return `<div class="h2h-cell ${who}"><span class="h2h-val" style="color:var(--faint)">–</span><div class="h2h-bar ${who}" style="flex:1"></div></div>`;
         return `<div class="h2h-cell ${who}"><span class="h2h-val ${win?'win':''}">${m.fmt(r.v)}</span>
           <div class="h2h-bar ${who}" style="flex:1"><div class="h2h-fill fair ${r.pct>=80?'top':''}" style="width:0%;transition-delay:${idx*45}ms" data-w="${r.pct.toFixed(1)}"></div></div>
           <span class="fairpct" title="Perzentil innerhalb der eigenen Position (alle 3 Vereine): besser als ${Math.round(r.pct)} % der Positionskollegen">P${Math.round(r.pct)}</span></div>`;
       };
       return `<div class="h2h-row">${cell(ra,'a',winA)}<div class="lbl">${m.lbl}</div>${cell(rb,'',winB)}</div>`;
     }).join('');
-    note=`<div class="h2h-fair-note"><span class="ic">⚖️</span><span>Fairer Vergleich: Jeder Wert zählt als <b>Perzentil innerhalb der eigenen Position</b> (alle Spieler der drei Vereine, ab ${MIN_GP} Spielen, pro 90 Min). Ein Verteidiger muss also keine Stürmer-Tore schlagen — nur besser sein als andere Verteidiger. P90 = besser als 90 % der Positionskollegen.</span></div>`;
-    const samePos=A.pos===B.pos, posA=POS_MAP[A.pos]||'—', posB=POS_MAP[B.pos]||'—';
+    note=`<div class="h2h-fair-note"><span class="ic">⚖️</span><span>Fairer Vergleich: Jeder Wert zählt als <b>Perzentil innerhalb der eigenen Position</b> (alle Spieler der drei Vereine, ab ${MIN_GP} Spielen, pro 90 Min). Ein Verteidiger muss also keine Stürmer-Tore schlagen – nur besser sein als andere Verteidiger. P90 = besser als 90 % der Positionskollegen.</span></div>`;
+    const samePos=A.pos===B.pos, posA=POS_MAP[A.pos]||'–', posB=POS_MAP[B.pos]||'–';
     const lead=aWins>bWins?A:bWins>aWins?B:null;
     const fsTxt=(fa.score!=null&&fb.score!=null)?` Fair-Score (0–100, rollengewichtet): <b>${esc(A.name)} ${fa.score}</b> · <b>${esc(B.name)} ${fb.score}</b>.`:'';
     if(!samePos)
       verdict=(lead?`Relativ zur eigenen Rolle (${posA} vs. ${posB}) ist <b>${esc(lead.name)}</b> aktuell stärker (${Math.max(aWins,bWins)}:${Math.min(aWins,bWins)}).`
         :`${posA} vs. ${posB}: positionsbereinigt praktisch gleichauf (${aWins}:${bWins}).`)+fsTxt;
     else
-      verdict=(lead?`Gleiche Position (${posA}) — <b>${esc(lead.name)}</b> hat positionsbereinigt die Nase vorn (${Math.max(aWins,bWins)}:${Math.min(aWins,bWins)}).`
-        :`Gleiche Position (${posA}) — Kopf-an-Kopf (${aWins}:${bWins}).`)+fsTxt;
+      verdict=(lead?`Gleiche Position (${posA}) – <b>${esc(lead.name)}</b> hat positionsbereinigt die Nase vorn (${Math.max(aWins,bWins)}:${Math.min(aWins,bWins)}).`
+        :`Gleiche Position (${posA}) – Kopf-an-Kopf (${aWins}:${bWins}).`)+fsTxt;
   } else {
     const metrics=[
       ['Spiele','gp',v=>v],['Ø-Note','rating',v=>r2(v)],
@@ -2328,10 +2366,10 @@ function renderH2H(){
           <div class="h2h-bar b" style="flex:1"><div class="h2h-fill" style="width:0%" data-w="${bv/mx*100}"></div></div></div>
       </div>`;
     }).join('');
-    note=`<div class="h2h-fair-note"><span class="ic">📋</span><span>Rohwerte ohne Positionsausgleich — ein Stürmer gewinnt hier fast immer die Torspalten. Für einen fairen Vergleich oben auf <b>Fair · Position</b> stellen.</span></div>`;
+    note=`<div class="h2h-fair-note"><span class="ic">📋</span><span>Rohwerte ohne Positionsausgleich – ein Stürmer gewinnt hier fast immer die Torspalten. Für einen fairen Vergleich oben auf <b>Fair · Position</b> stellen.</span></div>`;
     if(aWins>bWins) verdict=`In den Rohwerten hat <b>${esc(A.name)}</b> die Nase vorn (${aWins}:${bWins}).`;
     else if(bWins>aWins) verdict=`In den Rohwerten liegt <b>${esc(B.name)}</b> vorn (${bWins}:${aWins}).`;
-    else verdict=`Kopf-an-Kopf — beide nehmen sich kaum was (${aWins}:${bWins}).`;
+    else verdict=`Kopf-an-Kopf – beide nehmen sich kaum was (${aWins}:${bWins}).`;
   }
   const whoSub=(p,f)=>{
     let s=`${POS_MAP[p.pos]||''} · ${p.gp} Spiele`;
@@ -2388,16 +2426,16 @@ function renderAchievements(){
     scorer&&(scorer.goals+scorer.assists)>0?aw(false,'⚽','Bester Scorer',scorer.name,`${scorer.goals+scorer.assists} Scorerpunkte`,'Tore + Vorlagen zusammengerechnet.'):null,
     sharp&&sharp.goals>0?aw(false,'🎯','Eiskalt',sharp.name,`${r2(sharp.goals/sharp.gp)} Tore/Spiel`,`Beste Torquote pro Einsatz (ab ${MINR} Spielen).`):null,
     bestRate?aw(false,'⭐','Beste Ø-Note',bestRate.name,`${r2(bestRate.avgRating)} im Schnitt`,`Höchste Bewertung (ab ${MINR} Spielen).`):null,
-    perf?aw(false,'💎','Bester Einzelauftritt',perf.name,`Note ${r2(perf.rating)}`,`Stärkste Einzelleistung — gegen ${perf.opp} (${perf.gf}:${perf.ga}).`):null,
-    gala?aw(false,'🎪','Galavorstellung',gala.name,`${gala.goals} Tore in 1 Spiel`,`Bestes Torfestival — gegen ${gala.opp} (${gala.gf}:${gala.ga}).`):null,
+    perf?aw(false,'💎','Bester Einzelauftritt',perf.name,`Note ${r2(perf.rating)}`,`Stärkste Einzelleistung – gegen ${perf.opp} (${perf.gf}:${perf.ga}).`):null,
+    gala?aw(false,'🎪','Galavorstellung',gala.name,`${gala.goals} Tore in 1 Spiel`,`Bestes Torfestival – gegen ${gala.opp} (${gala.gf}:${gala.ga}).`):null,
     drib?aw(false,'⚡','Dribbelkönig',drib.name,`${drib.dribbles} Dribblings`,'Geht am häufigsten ins 1-gegen-1.'):null,
-    strat?aw(false,'🎩','Strippenzieher',strat.name,`${strat.secondAssists}× 2. Vorlage`,'Leitet die Tore mit ein — die Vorlage zur Vorlage.'):null,
+    strat?aw(false,'🎩','Strippenzieher',strat.name,`${strat.secondAssists}× 2. Vorlage`,'Leitet die Tore mit ein – die Vorlage zur Vorlage.'):null,
     inter?aw(false,'🧹','Abfangjäger',inter.name,`${inter.interceptions} Abfangaktionen`,'Riecht die Pässe des Gegners.'):null,
     wall?aw(false,'🧤','Zweikampf-König',wall.name,`${wall.tacklesmade} Tacklings`,'Die meisten gewonnenen Zweikämpfe.'):null,
     gun?aw(false,'🔫','Dauerfeuer',gun.name,`${gun.shots} Schüsse`,'Sucht am häufigsten den Abschluss.'):null,
     mom&&mom.mom>0?aw(false,'🎖️','MdS-Sammler',mom.name,`${mom.mom}× Mann des Spiels`,'Am häufigsten zum Besten gewählt.'):null,
     iron?aw(false,'🧱','Immer dabei',iron.name,`${iron.gp} Spiele`,'Die meisten Einsätze im Team.'):null,
-    bestDuo?aw(false,'🤝','Traum-Duo',`${bestDuo.a} + ${bestDuo.b}`,`${pct(bestDuo.winPct)} Siege zusammen`,`${bestDuo.gp} gemeinsame Spiele — läuft, wenn beide da sind.`):null,
+    bestDuo?aw(false,'🤝','Traum-Duo',`${bestDuo.a} + ${bestDuo.b}`,`${pct(bestDuo.winPct)} Siege zusammen`,`${bestDuo.gp} gemeinsame Spiele – läuft, wenn beide da sind.`):null,
     rough&&rough.redcards>0?aw(false,'🟥','Hitzkopf',rough.name,`${rough.redcards}× Rot`,'Sollte an der Disziplin feilen.'):null,
     aw(true,'💯','Offensivkraft',`${t.gf} Tore`,`in ${t.games} Spielen`,`Schnitt ${r1(t.avgGf)} Tore pro Spiel.`),
     t.cs>0?aw(true,'🛡️','Zu-Null',`${t.cs}× ohne Gegentor`,`${Math.round(t.games?100*t.cs/t.games:0)}% der Spiele`,'Hinten alles dichtgehalten.'):null,
@@ -2437,7 +2475,7 @@ function renderMatches(){
   let list=S.M.slice().sort((a,b)=>b.date-a.date);
   if(UI.filtType!=='all') list=list.filter(m=>m.type===UI.filtType);
   if(UI.filtRes!=='all') list=list.filter(m=>m.result===UI.filtRes);
-  $('spieleSub').textContent=`${list.length} von ${S.M.length} Partien — klick für die Aufstellung.`;
+  $('spieleSub').textContent=`${list.length} von ${S.M.length} Partien – klick für die Aufstellung.`;
   $('spieleScope').textContent=`${S.M.length} gesamt`;
   if(!list.length){ $('matchlist').innerHTML=`<div style="padding:26px;text-align:center;color:var(--muted)">Kein Spiel passt zum Filter.</div>`; return; }
   const seenTs=SEEN[CUR.id]||0;
@@ -2465,12 +2503,12 @@ function matchDetail(m){
 }
 function renderFoot(){
   const ts = (window.CLUB_DATA&&window.CLUB_DATA.updated) ? new Date(window.CLUB_DATA.updated*1000) : null;
-  const tsStr = ts ? ts.toLocaleString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '—';
+  const tsStr = ts ? ts.toLocaleString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '–';
   $('footClub').textContent=CUR.name;
   const stale=ts && (Date.now()-ts.getTime())>26*3600*1000;
-  $('footNote').innerHTML=`Alle Zahlen werden aus <b class="mono">${S.M.length}</b> aufgezeichneten Spielen von ${esc(CUR.name)} berechnet — `+
+  $('footNote').innerHTML=`Alle Zahlen werden aus <b class="mono">${S.M.length}</b> aufgezeichneten Spielen von ${esc(CUR.name)} berechnet – `+
     `direkt von EA geholt und live mit ourproclub.app abgeglichen. Letzte EA-Aktualisierung: <b class="mono">${tsStr}</b>. `+
-    (stale?`<b style="color:var(--amber)">Der Stand ist älter als ein Tag — einmal Auto-Update-einrichten.bat ausführen, dann hält sich das von selbst frisch.</b> `:'')+
+    (stale?`<b style="color:var(--amber)">Der Stand ist älter als ein Tag – einmal Auto-Update-einrichten.bat ausführen, dann hält sich das von selbst frisch.</b> `:'')+
     `Erfasst werden nur menschliche Mitspieler; den Rest steuert die KI. Spielervergleiche sind positionsbereinigt (Perzentile innerhalb der Position, alle drei Vereine).`;
 }
 
@@ -2498,7 +2536,7 @@ function radarChart(axes){
   const dots=axes.map((a,i)=>{ const p=pt(i,clamp(a.val,0.03,1)); return `<circle class="rdot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.6"/>`;}).join('');
   return `<svg class="radar" viewBox="0 0 160 172">${grid}${spokes}<polygon class="rarea" points="${poly}"/>${dots}${labels}</svg>`;
 }
-// Radar-Achsen je Rolle — der Wert ist das Perzentil innerhalb der Position
+// Radar-Achsen je Rolle – der Wert ist das Perzentil innerhalb der Position
 const AXES_BY_POS={
   forward:   ['rating','goals90','conv','ga90','drib90','assists90'],
   midfielder:['rating','assists90','pass','ga90','drib90','int90'],
@@ -2510,7 +2548,7 @@ function playerRadar(p){
   const axes=keys.map(k=>{
     const m=FAIRM.find(x=>x.key===k);
     const r=metricPctl(p,m);
-    return {label:m.lbl.replace('/90',''), val:r?r.pct/100:0.03, disp:r?m.fmt(r.v):'—'};
+    return {label:m.lbl.replace('/90',''), val:r?r.pct/100:0.03, disp:r?m.fmt(r.v):'–'};
   });
   const posTxt=poolIsPos(p.pos)?(POS_PLURAL[p.pos]||'Positionskollegen'):'allen Spielern';
   return `<div class="radarwrap">${radarChart(axes)}<div style="font-size:.72rem;color:var(--faint);margin-top:2px">Perzentile vs. ${esc(posTxt)} · alle 3 Vereine · pro 90 Min</div></div>`;
@@ -2533,11 +2571,11 @@ function playerSW(p){
   return tags.join('');
 }
 function playerTip(p){
-  if(p.gp<MIN_GP) return `Erst <b>${p.gp} ${p.gp===1?'Spiel':'Spiele'}</b> aufgezeichnet — für ein klares Urteil zu wenig. Mehr Einsätze, dann sieht man's genauer.`;
-  if(p.tackleattempts>=4&&p.tklAcc<25) return `Größter Hebel ist die <b>Defensive</b>: nur ${pct(p.tklAcc)} der Tacklings sitzen. Lieber stellen und abwarten statt grätschen — senkt auch das Foulrisiko.`;
+  if(p.gp<MIN_GP) return `Erst <b>${p.gp} ${p.gp===1?'Spiel':'Spiele'}</b> aufgezeichnet – für ein klares Urteil zu wenig. Mehr Einsätze, dann sieht man's genauer.`;
+  if(p.tackleattempts>=4&&p.tklAcc<25) return `Größter Hebel ist die <b>Defensive</b>: nur ${pct(p.tklAcc)} der Tacklings sitzen. Lieber stellen und abwarten statt grätschen – senkt auch das Foulrisiko.`;
   if(p.shots>=8&&p.shotConv<12) return `Schießt viel, trifft selten (${pct(p.shotConv)}). An der <b>Schussauswahl</b> arbeiten: aus guten Lagen abschließen statt aus jeder Position.`;
   if(p.per90('dribbles')>=16) return `Stark am Ball, aber ${r1(p.per90('dribbles'))} Dribblings/90 bringen <b>Ballverlust-Risiko</b>. Vorne ausspielen, hinten den einfachen Pass.`;
-  if(p.passAcc<70&&p.passattempts>0) return `Passquote ${pct(p.passAcc)} ist ausbaufähig — mehr <b>sichere Pässe</b>, das Risiko fürs letzte Drittel aufheben.`;
+  if(p.passAcc<70&&p.passattempts>0) return `Passquote ${pct(p.passAcc)} ist ausbaufähig – mehr <b>sichere Pässe</b>, das Risiko fürs letzte Drittel aufheben.`;
   if(p.avgRating>=7.5) return `Tragende Rolle. Weiter Verantwortung übernehmen und die <b>Mitspieler einbinden</b>.`;
   return `Solides Profil. Nächster Schritt: einen klaren <b>Schwerpunkt</b> ausbauen (Tore, Vorlagen oder Defensive).`;
 }
@@ -2613,7 +2651,7 @@ function openPlayer(name){
         <div class="dstat"><b>${rec.goals+rec.assists}</b><span>Scorer</span></div>
         <div class="dstat"><b>${rec.secondAssists}</b><span>2. Vorlagen</span></div>
         <div class="dstat"><b>${rec.interceptions}</b><span>Abfangen</span></div>
-        <div class="dstat"><b>${rec.shots>=4?pct(rec.shotConv):'—'}</b><span>Verwertung</span></div>
+        <div class="dstat"><b>${rec.shots>=4?pct(rec.shotConv):'–'}</b><span>Verwertung</span></div>
         <div class="dstat"><b>${rec.mom}</b><span>MdS</span></div>
         <div class="dstat"><b>${Math.round(rec.mins)}</b><span>Minuten</span></div>
         <div class="dstat"><b>${rec.shots}</b><span>Schüsse</span></div>
@@ -2631,12 +2669,12 @@ function openPlayer(name){
       <div class="dsec">Letzte Auftritte</div><div>${playerLog(rec)}</div>`;
   } else {
     block=`${eaBlock(name)}
-      <div class="dsec">Hinweis</div><div class="devtip"><b>Nur EA-Daten</b><div style="margin-top:6px">In den aufgezeichneten Spielen war ${esc(name)} nicht dabei — hier zählen nur die EA-Karrierewerte.</div></div>`;
+      <div class="dsec">Hinweis</div><div class="devtip"><b>Nur EA-Daten</b><div style="margin-top:6px">In den aufgezeichneten Spielen war ${esc(name)} nicht dabei – hier zählen nur die EA-Karrierewerte.</div></div>`;
   }
   const rankTxt=fair&&fair.rank&&fair.rank.of>=2?` · #${fair.rank.pos} von ${fair.rank.of} ${POS_PLURAL[pos]||'Spielern'} im Hub`:'';
   $('modal').innerHTML=`<div class="sheet"><div class="sheet-h">
       <div class="pavatar" style="background:${colorFor(name)}">${initials(name)}</div>
-      <div class="who"><b>${esc(name)}</b><span>${POS_MAP[pos]||'—'}${arch?' · '+(ARCH_MAP[arch]||''):''} · ${esc(CUR.name)}${rankTxt}</span></div>
+      <div class="who"><b>${esc(name)}</b><span>${POS_MAP[pos]||'–'}${arch?' · '+(ARCH_MAP[arch]||''):''} · ${esc(CUR.name)}${rankTxt}</span></div>
       ${fair&&fair.score!=null?`<div class="hrate" title="Rollengewichteter Gesamtwert aus Positions-Perzentilen (0–100)"><b>${fair.score}</b><span>Fair-Score</span></div>`:''}
       <div class="hrate" ${fair&&fair.score!=null?'style="margin-left:18px"':''}><b>${r1(headRate)}</b><span>Ø-Note</span></div>
       <button class="sheet-close" id="sheetClose">✕</button></div>
@@ -2656,7 +2694,7 @@ function closePlayer(){
 
 /* ============================================================ ANIMATION */
 const RM=()=>window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-/* Balken/Linien/Donuts animieren erst, wenn sie wirklich im Blick sind —
+/* Balken/Linien/Donuts animieren erst, wenn sie wirklich im Blick sind –
    sonst laeuft die Animation unsichtbar unterhalb des Folds ab. */
 const VIEW_FNS=new Map();
 const VIEW_OB=('IntersectionObserver' in window)?new IntersectionObserver(es=>es.forEach(e=>{
@@ -2705,13 +2743,29 @@ function flipSort(fn){
 
 /* ============================================================ FETCH / AKTUALISIEREN
    "Aktualisieren" macht ZWEI Dinge:
-   1. data.js frisch nachladen (Cache-Buster) — greift lokal direkt nach einem
+   1. data.js frisch nachladen (Cache-Buster) – greift lokal direkt nach einem
       Lauf von Daten-aktualisieren.bat und online nach dem Hochladen der neuen
       data.js, ganz ohne Strg+F5.
    2. ourproclub.app je Verein abfragen (Bonus; auf https-Hosts vom Browser
-      geblockt — CORS erlaubt nur file://, macht dann einfach nichts).
-   EA selbst ist vom Browser aus NICHT abrufbar (Akamai + kein CORS) — frische
+      geblockt – CORS erlaubt nur file://, macht dann einfach nichts).
+   EA selbst ist vom Browser aus NICHT abrufbar (Akamai + kein CORS) – frische
    EA-Spiele kommen daher immer über den Ein-Klick-Updater in data.js. */
+// Doppelt kodierte Namen ('BahÃ§esehir' -> 'Bahçesehir') reparieren –
+// gleiche Logik wie fix_mojibake in update.py, für live geholte Daten.
+function fixMoji(s){
+  if(typeof s!=='string'||!/[ÂÃâð]/.test(s)) return s;
+  try{
+    const codes=[...s].map(c=>c.charCodeAt(0));
+    if(codes.some(c=>c>255)) return s;
+    return new TextDecoder('utf-8',{fatal:true}).decode(Uint8Array.from(codes));
+  }catch(e){ return s; }
+}
+function deepFixMoji(o){
+  if(typeof o==='string') return fixMoji(o);
+  if(Array.isArray(o)) return o.map(deepFixMoji);
+  if(o&&typeof o==='object'){ const r={}; for(const k in o) r[fixMoji(k)]=deepFixMoji(o[k]); return r; }
+  return o;
+}
 let refreshing=false, lastLoad=Date.now(), lastSrc='';
 let toastTimer=null;
 function toast(msg){ const t=$('toast'); t.innerHTML=msg; t.classList.add('show');
@@ -2754,7 +2808,7 @@ async function load(showSpinner, manual){
         .then(r=>r.ok?r.json():[])
     ));
     let liveAny=false;
-    results.forEach((res,i)=>{ if(res.status==='fulfilled'&&Array.isArray(res.value)&&res.value.length){ LIVE[TEAMS[i].id]=res.value; liveAny=true; } });
+    results.forEach((res,i)=>{ if(res.status==='fulfilled'&&Array.isArray(res.value)&&res.value.length){ LIVE[TEAMS[i].id]=deepFixMoji(res.value); liveAny=true; } });
     const hasLocal=!!(window.CLUB_DATA&&window.CLUB_DATA.clubs&&totalLocal()>0);
     if(!hasLocal&&!liveAny)
       throw new Error(gotData?'data.js enthält noch keine Spiele':'data.js wurde nicht gefunden');
@@ -2766,9 +2820,9 @@ async function load(showSpinner, manual){
     updLine();
     if(manual){
       const diff=totalLocal()-beforeTotal;
-      if(diff>0) toast(`✅ <b>${diff} neue${diff===1?'s':''} Spiel${diff===1?'':'e'}</b> geladen — alle Statistiken neu berechnet.`);
-      else if(dataTs()!==beforeTs) toast(`Daten neu eingelesen — keine neuen Spiele dabei.`);
-      else toast(`Keine neuen Daten. Frische EA-Spiele holt <b>Daten-aktualisieren.bat</b>${location.protocol==='file:'?'':' — danach die neue <b>data.js</b> mit hochladen'}, dann hier erneut auf Aktualisieren klicken.`);
+      if(diff>0) toast(`✅ <b>${diff} neue${diff===1?'s':''} Spiel${diff===1?'':'e'}</b> geladen – alle Statistiken neu berechnet.`);
+      else if(dataTs()!==beforeTs) toast(`Daten neu eingelesen – keine neuen Spiele dabei.`);
+      else toast(`Keine neuen Daten. Frische EA-Spiele holt <b>Daten-aktualisieren.bat</b>${location.protocol==='file:'?'':' – danach die neue <b>data.js</b> mit hochladen'}, dann hier erneut auf Aktualisieren klicken.`);
     }
   }catch(err){
     if($('app').hidden){ $('stateBox').hidden=false;

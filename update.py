@@ -40,6 +40,7 @@ Benutzung:
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 import time
@@ -215,12 +216,14 @@ def fetch_ourproclub(club_id):
     return []
 
 
-def fetch_ea_all():
+def fetch_ea_all(prev_ea=None):
     """Liga-/Playoff-Spiele + Karriere-Snapshots fuer ALLE Vereine.
     Ein Browserfenster, alle Abrufe nacheinander, jeder Abruf mit
-    eigenen Wiederholungen."""
+    eigenen Wiederholungen. prev_ea (letzter guter Stand) steuert,
+    ob die selten wechselnden Profil-Endpunkte uebersprungen werden."""
     from playwright.sync_api import sync_playwright
 
+    prev_ea = prev_ea or {}
     matches = []
     ea_meta = {}
     with sync_playwright() as pw:
@@ -267,35 +270,66 @@ def fetch_ea_all():
                     for m in got:
                         matches.append(convert_ea_match(m, mt, cid, cname))
                 meta = {"fetchedAt": int(datetime.now().timestamp())}
-                # Karriere-Snapshots: best effort, ein Fehler kippt nicht den Lauf
-                try:
-                    ov = get_json(f"{EA_BASE}/clubs/overallStats?platform={PLATFORM}&clubIds={cid}",
-                                  f"{cname}/overallStats")
-                    meta["overall"] = ov[0] if isinstance(ov, list) and ov else ov
-                except Exception as e:
-                    say(f"    (overallStats fehlgeschlagen: {str(e)[:60]})")
-                try:
-                    mc = get_json(f"{EA_BASE}/members/career/stats?platform={PLATFORM}&clubId={cid}",
-                                  f"{cname}/membersCareer")
-                    meta["membersCareer"] = mc.get("members", []) if isinstance(mc, dict) else mc
-                except Exception as e:
-                    say(f"    (membersCareer fehlgeschlagen: {str(e)[:60]})")
-                try:
-                    ms = get_json(f"{EA_BASE}/members/stats?platform={PLATFORM}&clubId={cid}",
-                                  f"{cname}/membersStats")
-                    meta["membersStats"] = ms.get("members", []) if isinstance(ms, dict) else ms
-                except Exception as e:
-                    say(f"    (membersStats fehlgeschlagen: {str(e)[:60]})")
+
+                def grab(key, url, label, extract, tries=3):
+                    """Best-effort-Endpunkt: ein Fehler kippt nie den Lauf.
+                    Schreibt nur bei brauchbarem Ergebnis - fehlende Keys behalten
+                    spaeter beim Merge den letzten guten Stand."""
+                    try:
+                        val = extract(get_json(url, label, tries=tries))
+                        if val is not None:
+                            meta[key] = val
+                            return True
+                    except Exception as e:
+                        say(f"    ({label} fehlgeschlagen: {str(e)[:60]})")
+                    return False
+
+                # Karriere-Snapshots
+                grab("overall",
+                     f"{EA_BASE}/clubs/overallStats?platform={PLATFORM}&clubIds={cid}",
+                     f"{cname}/overallStats",
+                     lambda ov: ov[0] if isinstance(ov, list) and ov else ov)
+                grab("membersCareer",
+                     f"{EA_BASE}/members/career/stats?platform={PLATFORM}&clubId={cid}",
+                     f"{cname}/membersCareer",
+                     lambda mc: mc.get("members", []) if isinstance(mc, dict) else mc)
+                grab("membersStats",
+                     f"{EA_BASE}/members/stats?platform={PLATFORM}&clubId={cid}",
+                     f"{cname}/membersStats",
+                     lambda ms: ms.get("members", []) if isinstance(ms, dict) else ms)
+
+                # Vereinsprofil (Stadionname, Trikotfarben, Wappen-ID) und
+                # Playoff-Historie aendern sich hoechstens ein paar Mal pro
+                # Saison - beim 10-Minuten-Takt reicht ein Refresh alle 12 h.
+                old = prev_ea.get(cid) or {}
+                aux_fresh = (time.time() - old.get("auxFetchedAt", 0)) < 12 * 3600
+                if not (aux_fresh and "info" in old and "playoffs" in old):
+                    ok_info = grab(
+                        "info",
+                        f"{EA_BASE}/clubs/info?platform={PLATFORM}&clubIds={cid}",
+                        f"{cname}/info",
+                        lambda inf: inf.get(cid) if isinstance(inf, dict) else None)
+                    # Achtung: Pfad ist club/... (Singular) mit clubId=.
+                    # Leere Liste = wie 'nichts geliefert' behandeln: EA gibt
+                    # die Historie nicht zuverlaessig zurueck, und ein leeres
+                    # Ergebnis darf echte Eintraege nicht ueberschreiben.
+                    ok_po = grab(
+                        "playoffs",
+                        f"{EA_BASE}/club/playoffAchievements?platform={PLATFORM}&clubId={cid}",
+                        f"{cname}/playoffAchievements",
+                        lambda pa: pa if isinstance(pa, list) and pa else None)
+                    if ok_info and ok_po:
+                        meta["auxFetchedAt"] = int(time.time())
+
                 # Saison-Historie: EA liefert das nicht auf jedem Stand der API -
                 # zwei Schreibweisen probieren, sonst kommentarlos weglassen.
                 for sep in ("seasonalStats", "seasonalstats"):
-                    try:
-                        se = get_json(f"{EA_BASE}/clubs/{sep}?platform={PLATFORM}&clubIds={cid}",
-                                      f"{cname}/{sep}", tries=1)
-                        meta["seasonal"] = se[0] if isinstance(se, list) and se else se
+                    if grab("seasonal",
+                            f"{EA_BASE}/clubs/{sep}?platform={PLATFORM}&clubIds={cid}",
+                            f"{cname}/{sep}",
+                            lambda se: se[0] if isinstance(se, list) and se else se,
+                            tries=1):
                         break
-                    except Exception:
-                        pass
                 ea_meta[cid] = meta
         finally:
             browser.close()
@@ -303,6 +337,33 @@ def fetch_ea_all():
 
 
 # ---------------------------------------------------------------- Store / Ausgabe
+
+_MOJIBAKE_RE = re.compile(r"[Â-Ãâð]")  # Â Ã â ð = typische UTF-8-als-Latin-1-Marker
+
+def fix_mojibake(s):
+    """Repariert doppelt kodierte Namen wie 'BahÃ§esehir' -> 'Bahçesehir'.
+    EA liefert UTF-8, das unterwegs schon mal als Latin-1 gelesen wurde.
+    Nur Strings mit Mojibake-Markern werden angefasst; schlaegt die
+    Rueckuebersetzung fehl, bleibt der Original-String stehen."""
+    if not isinstance(s, str) or not _MOJIBAKE_RE.search(s):
+        return s
+    try:
+        return s.encode("latin-1").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        return s
+
+
+def deep_fix_mojibake(obj):
+    """Wendet fix_mojibake auf alle Strings einer JSON-Struktur an
+    (auch dict-Keys, z. B. Spielernamen in player_data)."""
+    if isinstance(obj, str):
+        return fix_mojibake(obj)
+    if isinstance(obj, list):
+        return [deep_fix_mojibake(x) for x in obj]
+    if isinstance(obj, dict):
+        return {fix_mojibake(k): deep_fix_mojibake(v) for k, v in obj.items()}
+    return obj
+
 
 def load_store():
     """Store-Format: {"matches": [...], "ea": {clubId: {...}}}.
@@ -325,6 +386,9 @@ def load_store():
 
 def write_outputs(store, ea_meta):
     matches = sorted(store.values(), key=lambda m: int(m["match_date"]), reverse=True)
+    # Encoding-Reparatur bei jeder Ausgabe: heilt auch Altbestaende im Store.
+    matches = deep_fix_mojibake(matches)
+    ea_meta = deep_fix_mojibake(ea_meta)
     STORE_PATH.write_text(
         json.dumps({"matches": matches, "ea": ea_meta}, ensure_ascii=False),
         encoding="utf-8")
@@ -432,10 +496,14 @@ def collect(auto=False, cloud=False):
         rounds = 3 if auto else 2
         for attempt in range(rounds):
             try:
-                ea_matches, ea_new = fetch_ea_all()
+                ea_matches, ea_new = fetch_ea_all(prev_ea=ea_meta)
                 for m in ea_matches:
                     store[(str(m["club_id"]), int(m["match_date"]))] = m
-                ea_meta.update(ea_new)
+                # Pro Verein mit dem letzten guten Stand mergen: schlaegt ein
+                # einzelner EA-Endpunkt fehl (Akamai-Block), bleibt der alte
+                # Wert erhalten statt kommentarlos aus data.js zu verschwinden.
+                for cid, meta in ea_new.items():
+                    ea_meta[cid] = {**ea_meta.get(cid, {}), **meta}
                 ea_count = len(ea_matches)
                 break
             except Exception as e:
