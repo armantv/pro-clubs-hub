@@ -1055,7 +1055,7 @@ table.squad{width:100%;border-collapse:collapse;font-size:.86rem}
       <div class="tablewrap">
         <div class="tbar">
           <span class="lbl">Spielerwerte</span>
-          <div class="seg" id="squadScope"><button data-scope="recent" class="on">Aufgezeichnet</button><button data-scope="ea">EA-Karriere</button></div>
+          <div class="seg" id="squadScope"><button data-scope="ea" class="on">Vereinshistorie</button><button data-scope="recent">Aufgezeichnet</button></div>
           <div class="seg" id="squadPer"><button data-per="total" class="on">Gesamt</button><button data-per="p90">pro 90 Min</button></div>
           <span class="thint" id="squadHint"></span>
         </div>
@@ -1581,15 +1581,15 @@ function buildGesamtfazit(t, players){
 /* ============================================================ STATE / DATEN */
 let S=null;             // aktuelle Berechnung fuer CUR
 const LIVE={};          // clubId -> live matches (ourproclub)
-let UI={perMode:'total',scope:'recent',sortKey:'avgRating',sortDir:-1,
+let UI={perMode:'total',scope:'ea',sortKey:'gp',sortDir:-1,
         filtType:'all',filtRes:'all',oppAll:false};
 const openMatches=new Set();
 let didAnimate=false, lastSig=null;
 
 function resetUI(){
-  UI={perMode:'total',scope:'recent',sortKey:'avgRating',sortDir:-1,filtType:'all',filtRes:'all',oppAll:false};
+  UI={perMode:'total',scope:'ea',sortKey:'gp',sortDir:-1,filtType:'all',filtRes:'all',oppAll:false};
   openMatches.clear();
-  document.querySelectorAll('#squadScope button').forEach(b=>b.classList.toggle('on',b.dataset.scope==='recent'));
+  document.querySelectorAll('#squadScope button').forEach(b=>b.classList.toggle('on',b.dataset.scope==='ea'));
   document.querySelectorAll('#squadPer button').forEach(b=>b.classList.toggle('on',b.dataset.per==='total'));
   document.querySelectorAll('#filtType button').forEach(b=>b.classList.toggle('on',b.dataset.v==='all'));
   document.querySelectorAll('#filtRes button').forEach(b=>b.classList.toggle('on',b.dataset.v==='all'));
@@ -1790,7 +1790,7 @@ function renderCareerKpis(){
     kpi('Höchster Sieg',t.biggestWin?`${t.biggestWin.m.ourGoals}:${t.biggestWin.m.oppGoals}`:'–',t.biggestWin?t.biggestWin.m.oppName:''),
     kpi('Höchste Pleite',t.biggestLoss?`${t.biggestLoss.m.ourGoals}:${t.biggestLoss.m.oppGoals}`:'–',t.biggestLoss?t.biggestLoss.m.oppName:''),
     kpi('Serie ungeschlagen',t.longestUnbeaten,'Spiele am Stück'),
-    kpi('Kader',S.players.length,'erfasste Spieler'),
+    kpi('Kader',eaRows().length||S.players.length,eaRows().length?'Spieler laut EA-Historie':'erfasste Spieler'),
   ].join('');
 }
 // Eine Zelle der EA-Leiste – überall dieselbe Vorlage.
@@ -1877,17 +1877,25 @@ function donut(segs, centerVal, centerLabel){
 function renderDonuts(){
   const t=S.team;
   $('wdlSub').textContent=`Siege, Remis und Niederlagen über alle ${t.games} aufgezeichneten Spiele.`;
-  $('scorersSub').textContent=`Anteil an den ${t.gf} erzielten Toren (alle aufgezeichneten Spiele).`;
   const wdl=[{label:'Siege',value:t.W,color:cssVar('--win')},{label:'Remis',value:t.D,color:cssVar('--draw')},{label:'Niederlagen',value:t.L,color:cssVar('--loss')}];
   $('donutWdl').innerHTML=donut(wdl, t.games, 'Spiele');
-  const scorers=S.players.filter(m=>m.goals>0).sort((a,b)=>b.goals-a.goals);
+  // Torschützen aus der EA-Vereinshistorie (Karriere-Totale im Verein) –
+  // nur wenn EA nichts liefert, auf die aufgezeichneten Spiele zurückfallen.
+  const hist=eaRows(), ov=S.ea&&S.ea.overall;
+  const useEa=hist.length>0&&ov;
+  const pool=useEa?hist:S.players;
+  const totalGoals=useEa?num(ov.goals):t.gf;
+  $('scorersSub').textContent=useEa
+    ? `Anteil an allen ${totalGoals} Vereinstoren – EA-Vereinshistorie (${num(ov.gamesPlayed)} Spiele).`
+    : `Anteil an den ${t.gf} erzielten Toren (alle aufgezeichneten Spiele).`;
+  const scorers=pool.filter(m=>m.goals>0).sort((a,b)=>b.goals-a.goals);
   const top=scorers.slice(0,5);
   const accounted=top.reduce((s,m)=>s+m.goals,0);
-  const humanGoals=S.players.reduce((a,p)=>a+p.goals,0);
+  const humanGoals=pool.reduce((a,p)=>a+p.goals,0);
   const segs=top.map((m,i)=>({label:m.name,value:m.goals,color:CUR.scorerPal[i%CUR.scorerPal.length]}));
   const restHuman=humanGoals-accounted; if(restHuman>0) segs.push({label:'Weitere Spieler',value:restHuman,color:CUR.scorerRest});
-  const ai=t.gf-humanGoals; if(ai>0) segs.push({label:'KI-Mitspieler',value:ai,color:cssVar('--draw')});
-  $('donutScorers').innerHTML=segs.length?donut(segs, t.gf, 'Tore'):'<p class="panel-sub">Noch keine Tore erfasst.</p>';
+  const ai=totalGoals-humanGoals; if(ai>0) segs.push({label:'KI-Mitspieler',value:ai,color:cssVar('--draw')});
+  $('donutScorers').innerHTML=segs.length?donut(segs, totalGoals, 'Tore'):'<p class="panel-sub">Noch keine Tore erfasst.</p>';
   onView($('donutWdl'),()=>document.querySelectorAll('#donutWdl .dseg').forEach(s=>s.setAttribute('stroke-dasharray', s.dataset.da)));
   onView($('donutScorers'),()=>document.querySelectorAll('#donutScorers .dseg').forEach(s=>s.setAttribute('stroke-dasharray', s.dataset.da)));
 }
@@ -1965,13 +1973,18 @@ function hbarsIn(boxId){
   onView($(boxId),()=>document.querySelectorAll('#'+boxId+' .htrack i').forEach(el=>el.style.transform='scaleX(1)'));
 }
 function renderContrib(){
-  const ps=S.players.filter(p=>p.ga>0).sort((a,b)=>b.ga-a.ga||b.goals-a.goals);
+  // Karriere-Totale im Verein (EA-Vereinshistorie); Fallback: aufgezeichnete Spiele.
+  const hist=eaRows();
+  const pool=hist.length?hist:S.players;
+  const ps=pool.filter(p=>p.ga>0).sort((a,b)=>b.ga-a.ga||b.goals-a.goals);
   if(!ps.length){ $('contribSub').textContent='Noch keine Torbeteiligungen erfasst.'; $('contribBox').innerHTML=''; return; }
   const top=ps.slice(0,8), rest=ps.slice(8);
   const rows=top.map(p=>({name:p.name,g:p.goals,a:p.assists}));
   if(rest.length) rows.push({name:`Weitere (${rest.length})`,g:rest.reduce((s,p)=>s+p.goals,0),a:rest.reduce((s,p)=>s+p.assists,0)});
   const max=Math.max(...rows.map(r=>r.g+r.a));
-  $('contribSub').textContent=`Tore und Vorlagen gestapelt – alle ${S.team.games} aufgezeichneten Spiele.`;
+  $('contribSub').textContent=hist.length
+    ? `Tore und Vorlagen gestapelt – EA-Vereinshistorie (komplette Zeit im Verein).`
+    : `Tore und Vorlagen gestapelt – alle ${S.team.games} aufgezeichneten Spiele.`;
   $('contribBox').innerHTML=rows.map((r,i)=>`<div class="hrow" title="${esc(r.name)}: ${r.g} Tore · ${r.a} Vorlagen">
       <span class="hname">${esc(r.name)}</span>
       <div class="htrack">${r.g?`<i class="hg" style="width:${(100*r.g/max).toFixed(1)}%;--hd:${i*45}ms"></i>`:''}${r.a?`<i class="ha" style="width:${(100*r.a/max).toFixed(1)}%;--hd:${i*45+60}ms"></i>`:''}</div>
@@ -1982,7 +1995,7 @@ function renderMins(){
   const ps=S.players.filter(p=>p.mins>0).sort((a,b)=>b.mins-a.mins).slice(0,10);
   if(!ps.length){ $('minsSub').textContent='Noch keine Spielzeiten erfasst.'; $('minsBox').innerHTML=''; return; }
   const max=Math.max(...ps.map(p=>p.mins));
-  $('minsSub').textContent='Wer am längsten auf dem Platz steht – Minuten gesamt (Top 10).';
+  $('minsSub').textContent='Wer am längsten auf dem Platz steht – Minuten aus den aufgezeichneten Spielen (Top 10; EA liefert keine Minuten).';
   $('minsBox').innerHTML=ps.map((p,i)=>`<div class="hrow" title="${esc(p.name)}: ${Math.round(p.mins)} Minuten in ${p.gp} Spielen">
       <span class="hname">${esc(p.name)}</span>
       <div class="htrack"><i class="hg" style="width:${(100*p.mins/max).toFixed(1)}%;--hd:${i*45}ms"></i></div>
